@@ -1,5 +1,6 @@
 {
   "name": "car-rental-service",
+  "packageManager": "yarn@4.0.2",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
