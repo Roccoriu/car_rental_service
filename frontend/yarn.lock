@@ -3414,6 +3414,7 @@ __metadata:
     karma-jasmine: "npm:~5.1.0"
     karma-jasmine-html-reporter: "npm:~2.1.0"
     primeflex: "npm:^3.3.1"
+    primeicons: "npm:^6.0.1"
     primeng: "npm:^17.3.1"
     rxjs: "npm:~7.8.1"
     tslib: "npm:^2.6.2"
@@ -7204,6 +7205,13 @@ __metadata:
   version: 3.3.1
   resolution: "primeflex@npm:3.3.1"
   checksum: 6ab3e8fca36b2d0e1dfe7bfde2d80570f12ff6d8fbd43fe427e0dba29dfd4fe96b91a7b78c22023f01d142b11741811d9a2810e1e32c23c5da64a1462f66705b
+  languageName: node
+  linkType: hard
+
+"primeicons@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "primeicons@npm:6.0.1"
+  checksum: 9f59473d9b7f3b5aad1a3c7050fce8c06503f21586a67d3ed1fd362a9fad42a114c89b6e0f8fd7c94d71d090962b53181a086fe07a68a5535fa348fdbf63e641
   languageName: node
   linkType: hard
 
