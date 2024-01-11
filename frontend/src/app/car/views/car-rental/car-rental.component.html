@@ -1,7 +1,22 @@
 <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
-    <div class="grid -mt-3 -ml-3 -mr-3">
-        @for(car of cars; track car.id){
-        <app-car-card [car]="car"></app-car-card>
-        }
+    <div class="text-900 font-bold text-3xl text-center">Rent your car</div>
+    <p class="text-600 font-normal text-xl text-center">Nullam faucibus, sem et bibendum finibus, sapien ipsum congue
+        felis, sit amet pretium ex nisl ut eros.</p>
+    <p-divider class="w-full"></p-divider>
+    <div class="flex flex-wrap lg:flex-nowrap">
+        <app-car-rental-filter></app-car-rental-filter>
+
+        <div class="w-full border-2 border-dashed border-round surface-border surface-section mt-3 lg:mt-0"
+            style="min-height:25rem;">
+            <div class="flex flex-wrap lg:flex-nowrap">
+                <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+                    <div class="grid -mt-3 -ml-3 -mr-3">
+                        @for(car of cars; track car.id){
+                        <app-car-card [car]="car"></app-car-card>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
