@@ -10,6 +10,8 @@ import { BadgeModule } from 'primeng/badge';
 import { SliderModule } from 'primeng/slider';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'primeng/button';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -25,6 +27,9 @@ import { GalleriaModule } from 'primeng/galleria';
     SliderModule,
     InputNumberModule,
     GalleriaModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    
   ]
 })
 export class CarModule { }
