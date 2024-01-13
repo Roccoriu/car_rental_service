@@ -1,9 +1,16 @@
 package org.rental.car_rental.controller
 
+import org.rental.car_rental.dto.rental.RentalCreateDto
 import org.rental.car_rental.model.Rental
 import org.rental.car_rental.service.RentalService
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
@@ -15,5 +22,29 @@ class RentalController(private val rentalService: RentalService) {
     fun getRentals(): List<Rental> = rentalService.getAllRentals()
 
     @GetMapping("/{id}")
-    fun getRental(@PathVariable id: String): Optional<Rental> = rentalService.getCarsById(id.toLong())
+    fun getRental(@PathVariable id: String): Optional<Rental> = rentalService.getRentalsById(id.toLong())
+
+    @PostMapping
+    fun postRental(@RequestBody rentalDto: RentalCreateDto): ResponseEntity<Rental> {
+        val createdRental = rentalService.createRental(rentalDto)
+        return ResponseEntity(createdRental, HttpStatus.CREATED)
+    }
+
+    @PutMapping("/{id}")
+    fun putRental(
+            @RequestBody rentalDto: RentalCreateDto,
+            @PathVariable id: String
+    ): ResponseEntity<Rental> {
+        val updatedRental = rentalService.updateRental(rentalDto)
+        return ResponseEntity(updatedRental, HttpStatus.CREATED)
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteRental(@PathVariable id: String): ResponseEntity<Map<String, String>> {
+        val deletedRental = rentalService.deleteRental(id.toLong())
+        return ResponseEntity(
+                mapOf("message" to "successfully deleted", "resource" to deletedRental.toString()),
+                HttpStatus.OK
+        )
+    }
 }

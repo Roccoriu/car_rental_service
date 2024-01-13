@@ -5,7 +5,7 @@ import org.mapstruct.factory.Mappers
 import org.rental.car_rental.model.Car
 
 data class CarCreateDto(
-        val id: Long,
+        //val id: Long,
         val category: String,
         val brand: String,
         val model: String,
@@ -13,8 +13,8 @@ data class CarCreateDto(
         val color: String,
         val rentPriceDay: Double,
         val isAutomatic: Boolean,
-        var seats: Int,
-        var image: String
+        val seats: Int,
+        val image: String
 
         //val rentals: List<Rental> = mutableListOf();
 )

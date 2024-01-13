@@ -26,7 +26,10 @@ class CarController(private val carService: CarService) {
     }
 
     @PutMapping("/{id}")
-    fun putCar(@RequestBody carDto: CarCreateDto): ResponseEntity<Car> {
+    fun putCar(
+            @RequestBody carDto: CarCreateDto,
+            @PathVariable id: String
+    ): ResponseEntity<Car> {
         val updatedCar = carService.updateCar(carDto)
         return ResponseEntity(updatedCar, HttpStatus.OK)
     }
@@ -35,7 +38,7 @@ class CarController(private val carService: CarService) {
     fun deleteCar(@PathVariable id: String): ResponseEntity<Map<String, String>> {
         val deletedCar = carService.deleteCar(id.toLong())
         return ResponseEntity(
-                mapOf("message" to "Successfully deleted", "resource" to deletedCar.toString()),
+                mapOf("message" to "successfully deleted", "resource" to deletedCar.toString()),
                 HttpStatus.OK
         )
     }

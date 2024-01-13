@@ -23,8 +23,5 @@ class CarService(private val carRepository: CarRepository) {
         return carRepository.save(car)
     }
 
-    fun deleteCar(id: Long) {
-        val car = carRepository.deleteById(id)
-        return car
-    }
+    fun deleteCar(id: Long) = carRepository.deleteById(id)
 }
