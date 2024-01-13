@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
 @RestController
-@RequestMapping("/api/v1/rental")
+@RequestMapping("/v1/rental")
 class RentalController(private val rentalService: RentalService) {
     @GetMapping
     fun getRentals(): List<Rental> = rentalService.getAllRentals()
