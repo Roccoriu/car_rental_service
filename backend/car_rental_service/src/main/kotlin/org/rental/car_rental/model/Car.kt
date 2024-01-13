@@ -2,6 +2,7 @@ package org.rental.car_rental.model
 
 data class Car(
     var id: Long,
+    var category: String,
     var brand: String,
     var model: String,
     var year: Int,

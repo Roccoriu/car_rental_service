@@ -21,6 +21,7 @@ class CarService {
         // Initializing cars with sample data
         val car1 = Car(
             id = 1,
+            category = "Compact Car",
             brand = "Toyota",
             model = "Camry",
             year = 2022,
@@ -34,6 +35,7 @@ class CarService {
 
         val car2 = Car(
             id = 2,
+            category = "Compact Car",
             brand = "Honda",
             model = "Civic",
             year = 2021,
