@@ -19,5 +19,5 @@
         <span class="line-through text-600">{{car.rentPriceDay}}CHF</span>
         <span class="font-bold text-900 ml-2">{{car.rentPriceDay}}CHF</span>
     </div>
-    <p-button label="Rent this Car" icon="pi pi-shopping-cart" class="w-full"></p-button>
+    <p-button label="Rent this Car" (onClick)="rentCar()" icon="pi pi-shopping-cart" class="w-full"></p-button>
 </div>

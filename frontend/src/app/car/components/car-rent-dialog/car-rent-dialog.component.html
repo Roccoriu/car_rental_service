@@ -1,0 +1,110 @@
+<div class="text-center mb-5 overflow-hidden">
+    <div class="text-900 text-3xl font-medium mb-3">{{car.brand}} {{car.model}}</div>
+    <form [formGroup]="rentFormGroup" (ngSubmit)="submit()">
+        <div class="flex flex-wrap justify-content-around">
+            <div class="w-full md:w-5">
+                <span class="mb-3">
+                    <label for="firstname1" class="block text-900 font-medium mb-2">Firstname</label>
+                    <input formControlName="firstname" id="firstname1" type="text" autocomplete="given-name" pInputText
+                        class="w-full" [ngClass]="{'ng-invalid ng-dirty': submitted && f.firstname.errors}"/>
+                    @if (submitted && f.firstname.errors){
+                    <div class="invalid-feedback">
+                        @if (f.firstname.errors.required){
+                        <small class="p-error">Firstname is required</small>
+                        }
+                        @else if (f.firstname.errors.minlength){
+                        <small class="p-error">The Firstname must be at least 2 characters</small>
+                        }
+                        @else if(f.firstname.errors.maxlength){
+                        <small class="p-error">The Firstname can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5">
+                <span class="mb-3">
+                    <label for="lastname1" class="block text-900 font-medium mb-2">Lastname</label>
+                    <input formControlName="lastname" id="lastname1" type="text" autocomplete="family-name" pInputText
+                        class="w-full" [ngClass]="{'ng-invalid ng-dirty': submitted && f.lastname.errors}"/>
+                    @if(submitted && f.lastname.errors){
+                    <div class="invalid-feedback">
+                        @if (f.lastname.errors.required){
+                        <small class="p-error">Lastname is required</small>
+                        } @else if (f.lastname.errors.minlength){
+                        <small class="p-error">The Lastname must be at least 2 characters</small>
+                        } @else if (f.lastname.errors.maxlength){
+                        <small class="p-error">The Lastname can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="email1" class="block text-900 font-medium mb-2">E-Mail</label>
+                    <input formControlName="email" id="email1" type="text" autocomplete="email" pInputText class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.email.errors}"/>
+                    @if(submitted && f.email.errors){
+                    <div class="invalid-feedback">
+                        @if(f.email.errors.required){
+                        <small class="p-error">E-Mail is required</small>
+                        } @else if(f.email.errors.email){
+                        <small class="p-error">Please enter a valid E-Mail</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="birthday1" class="block text-900 font-medium mb-2">Birthday</label>
+                    <p-calendar formControlName="birthday" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" appendTo="body" [showIcon]="true" id="birthday1" autocomplete="birthday" class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.birthday.errors}"></p-calendar>
+                    @if(submitted && f.birthday.errors){
+                    <div class="invalid-feedback">
+                        @if(f.birthday.errors.required){
+                        <small class="p-error">Birthday is required</small>
+                        } @else if(f.birthday.errors.birthday){
+                        <small class="p-error">Please enter a valid Birthday </small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="startDate1" class="block text-900 font-medium mb-2">Start Date</label>
+                    <p-calendar formControlName="startDate" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" appendTo="body" [showIcon]="true" id="startDate1" class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.startDate.errors}"></p-calendar>
+                    @if(submitted && f.startDate.errors){
+                    <div class="invalid-feedback">
+                        @if(f.startDate.errors.required){
+                        <small class="p-error">Start Date is required</small>
+                        } @else if(f.startDate.errors.startDate){
+                        <small class="p-error">Please enter a valid Start Date </small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="endDate1" class="block text-900 font-medium mb-2">End Date</label>
+                    <p-calendar formControlName="endDate" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" appendTo="body" [showIcon]="true" id="endDate1" class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.endDate.errors}"></p-calendar>
+                    @if(submitted && f.endDate.errors){
+                    <div class="invalid-feedback">
+                        @if(f.endDate.errors.required){
+                        <small class="p-error">End Date is required</small>
+                        } @else if(f.endDate.errors.endDate){
+                        <small class="p-error">Please enter a valid End Date </small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+        </div>
+        <button type="submit" pButton pRipple label="Confirm Renting" icon="pi pi-plus" class="w-full"></button>
+    </form>
+</div>

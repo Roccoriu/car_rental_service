@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
+import { CarRentDialogComponent } from '../car-rent-dialog/car-rent-dialog.component';
 
 @Component({
   selector: 'app-car-card',
@@ -7,5 +9,16 @@ import { Component, Input } from '@angular/core';
 })
 export class CarCardComponent {
   @Input() car: any;
+
+  constructor(private dialogService: DialogService) {}
+
+
+  rentCar() {
+    const ref = this.dialogService.open(CarRentDialogComponent, {
+      header: 'Rent Car',
+      width: '70%',
+      data: this.car
+    });
+  }
 
 }
