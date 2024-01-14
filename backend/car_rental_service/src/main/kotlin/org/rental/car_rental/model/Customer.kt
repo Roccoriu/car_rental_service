@@ -10,10 +10,10 @@ class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0;
-    var firstName: String = "";
-    var lastName: String = "";
-    var dateOfBirth: LocalDate? = LocalDate.now();
-    var email: String = "";
+    val firstName: String = "";
+    val lastName: String = "";
+    val dateOfBirth: LocalDate? = LocalDate.now();
+    val email: String = "";
 
     @OneToMany(mappedBy = "customer", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     val rentals: List<Rental> = mutableListOf();

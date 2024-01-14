@@ -8,7 +8,7 @@ import java.time.LocalDate
 class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0;
+    var id: Long = 0;
 
     val startDate: LocalDate = LocalDate.now();
     val endDate: LocalDate = LocalDate.now();

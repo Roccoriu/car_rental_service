@@ -22,7 +22,7 @@ class RentalController(private val rentalService: RentalService) {
     fun getRentals(): List<Rental> = rentalService.getAllRentals()
 
     @GetMapping("/{id}")
-    fun getRental(@PathVariable id: String): Optional<Rental> = rentalService.getRentalsById(id.toLong())
+    fun getRental(@PathVariable id: Long): Rental = rentalService.getRentalsById(id)
 
     @PostMapping
     fun postRental(@RequestBody rentalDto: RentalCreateDto): ResponseEntity<Rental> {
@@ -33,15 +33,15 @@ class RentalController(private val rentalService: RentalService) {
     @PutMapping("/{id}")
     fun putRental(
             @RequestBody rentalDto: RentalCreateDto,
-            @PathVariable id: String
+            @PathVariable id: Long,
     ): ResponseEntity<Rental> {
-        val updatedRental = rentalService.updateRental(rentalDto)
+        val updatedRental = rentalService.updateRental(id, rentalDto)
         return ResponseEntity(updatedRental, HttpStatus.CREATED)
     }
 
     @DeleteMapping("/{id}")
-    fun deleteRental(@PathVariable id: String): ResponseEntity<Map<String, String>> {
-        val deletedRental = rentalService.deleteRental(id.toLong())
+    fun deleteRental(@PathVariable id: Long): ResponseEntity<Map<String, String>> {
+        val deletedRental = rentalService.deleteRental(id)
         return ResponseEntity(
                 mapOf("message" to "successfully deleted", "resource" to deletedRental.toString()),
                 HttpStatus.OK
