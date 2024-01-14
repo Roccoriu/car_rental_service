@@ -1,5 +1,6 @@
 package org.rental.car_rental.controller
 
+import jakarta.validation.Valid
 import org.rental.car_rental.dto.customer.CustomerCreateDto
 import org.rental.car_rental.model.Customer
 import org.rental.car_rental.service.CustomerService
@@ -24,15 +25,15 @@ class CustomerController(private val customerService: CustomerService) {
     fun getCustomer(@PathVariable id: Long): Customer = customerService.getCustomerById(id)
 
     @PostMapping
-    fun postCustomer(@RequestBody customerDto: CustomerCreateDto): ResponseEntity<Customer> {
+    fun postCustomer(@Valid @RequestBody customerDto: CustomerCreateDto): ResponseEntity<Customer> {
         val newCustomer = customerService.createCustomer(customerDto)
         return ResponseEntity(newCustomer, HttpStatus.CREATED)
     }
 
     @PutMapping("/{id}")
     fun putCustomer(
-            @RequestBody customerDto: CustomerCreateDto,
-            @PathVariable id: Long
+            @PathVariable id: Long,
+            @Valid @RequestBody customerDto: CustomerCreateDto,
     ): ResponseEntity<Customer> {
         val newCustomer = customerService.updateCustomer(id, customerDto)
         return ResponseEntity(newCustomer, HttpStatus.CREATED)

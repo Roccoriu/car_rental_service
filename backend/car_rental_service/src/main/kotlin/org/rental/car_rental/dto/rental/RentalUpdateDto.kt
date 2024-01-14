@@ -1,5 +1,6 @@
 package org.rental.car_rental.dto.rental
 
+import jakarta.validation.constraints.Future
 import org.jetbrains.annotations.NotNull
 import org.mapstruct.Mapper
 import org.mapstruct.factory.Mappers
@@ -11,9 +12,11 @@ import java.time.LocalDate
 
 data class RentalUpdateDto(
         @field:NotNull
+        @field:Future
         val startDate: LocalDate,
 
         @field:NotNull
+        @field:Future
         val endDate: LocalDate,
 
         @field:NotNull

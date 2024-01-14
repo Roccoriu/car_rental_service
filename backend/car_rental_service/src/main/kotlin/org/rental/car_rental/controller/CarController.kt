@@ -1,5 +1,6 @@
 package org.rental.car_rental.controller
 
+import jakarta.validation.Valid
 import org.rental.car_rental.dto.car.CarCreateUpdateDto
 import org.rental.car_rental.model.Car
 import org.rental.car_rental.service.CarService
@@ -18,15 +19,15 @@ class CarController(private val carService: CarService) {
     fun getCar(@PathVariable id: Long): Car = carService.getCarsById(id)
 
     @PostMapping
-    fun postCar(@RequestBody carDto: CarCreateUpdateDto): ResponseEntity<Car> {
+    fun postCar(@Valid @RequestBody carDto: CarCreateUpdateDto): ResponseEntity<Car> {
         val createdCar = carService.createCar(carDto)
         return ResponseEntity(createdCar, HttpStatus.CREATED)
     }
 
     @PutMapping("/{id}")
     fun putCar(
-            @RequestBody carDto: CarCreateUpdateDto,
-            @PathVariable id: Long
+            @PathVariable id: Long,
+            @Valid @RequestBody carDto: CarCreateUpdateDto,
     ): ResponseEntity<Car> {
         val updatedCar = carService.updateCar(id, carDto)
         return ResponseEntity(updatedCar, HttpStatus.OK)

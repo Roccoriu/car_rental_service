@@ -1,6 +1,6 @@
 package org.rental.car_rental.dto.customer
 
-import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.*
 import org.mapstruct.Mapper
 import org.mapstruct.factory.Mappers
 import org.rental.car_rental.model.Customer
@@ -14,9 +14,11 @@ data class CustomerCreateDto(
         val lastName: String,
 
         @field:NotNull
+        @field:Future
         val dateOfBirth: LocalDate,
 
         @field:NotNull
+        @field:Email
         val email: String,
 )
 

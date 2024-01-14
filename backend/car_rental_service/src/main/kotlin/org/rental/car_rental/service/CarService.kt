@@ -3,6 +3,7 @@ package org.rental.car_rental.service
 import jakarta.persistence.EntityNotFoundException
 import org.rental.car_rental.dto.car.CarCreateUpdateDto
 import org.rental.car_rental.dto.car.CarCreateUpdateMapper
+import org.rental.car_rental.error.exception.ResourceNotFoundException
 import org.rental.car_rental.model.Car
 import org.springframework.stereotype.Service
 import org.rental.car_rental.repository.CarRepository
@@ -13,7 +14,7 @@ class CarService(private val carRepository: CarRepository) {
 
     fun getCarsById(id: Long): Car = carRepository
             .findById(id)
-            .orElseThrow { EntityNotFoundException("Item not found with Id: $id") }
+            .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") }
 
     fun createCar(carDto: CarCreateUpdateDto): Car {
         val car = CarCreateUpdateMapper.INSTANCE.dtoToCar(carDto)
@@ -23,7 +24,7 @@ class CarService(private val carRepository: CarRepository) {
     fun updateCar(id: Long, carDto: CarCreateUpdateDto): Car {
         carRepository
                 .findById(id)
-                .orElseThrow { EntityNotFoundException("Item not found with Id: $id") };
+                .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") };
 
         val updatedCar = CarCreateUpdateMapper.INSTANCE.dtoToCar(carDto)
 
