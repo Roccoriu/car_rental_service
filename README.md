@@ -14,11 +14,11 @@ purposes.
 
 What things you need to install the software:
 
-- Java JDK Version
-- Kotlin Version
-- Spring Boot Version
+- Java JDK 17
+- Kotlin 1.8
+- Spring Boot 3.1.5
 - Angular Version
-- Node.js Version
+- Node.js 21.5.0
 
 ## 🛠 Installation
 
