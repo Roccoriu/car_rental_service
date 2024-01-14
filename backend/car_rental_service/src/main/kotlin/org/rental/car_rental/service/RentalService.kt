@@ -3,10 +3,11 @@ package org.rental.car_rental.service
 import jakarta.persistence.EntityNotFoundException
 import org.rental.car_rental.dto.rental.RentalCreateDto
 import org.rental.car_rental.dto.rental.RentalCreateMapper
+import org.rental.car_rental.dto.rental.RentalUpdateDto
+import org.rental.car_rental.dto.rental.RentalUpdateMapper
 import org.rental.car_rental.model.Rental
 import org.rental.car_rental.repository.RentalRepository
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class RentalService(private val rentalRepository: RentalRepository) {
@@ -17,16 +18,16 @@ class RentalService(private val rentalRepository: RentalRepository) {
             .orElseThrow { EntityNotFoundException("Item not found with id: $id") }
 
     fun createRental(rentalDto: RentalCreateDto): Rental {
-        val rental = RentalCreateMapper.INSTANCE.dtoToCustomer(rentalDto)
+        val rental = RentalCreateMapper.INSTANCE.dtoToRental(rentalDto)
         return rentalRepository.save(rental)
     }
 
-    fun updateRental(id: Long, rentalDto: RentalCreateDto): Rental {
+    fun updateRental(id: Long, rentalDto: RentalUpdateDto): Rental {
         rentalRepository
                 .findById(id)
                 .orElseThrow { EntityNotFoundException("Item not found with id: $id") }
 
-        val rental = RentalCreateMapper.INSTANCE.dtoToCustomer(rentalDto)
+        val rental = RentalUpdateMapper.INSTANCE.dtoToRental(rentalDto)
 
         rental.id = id
         return rentalRepository.save(rental)

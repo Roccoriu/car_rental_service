@@ -1,6 +1,6 @@
 package org.rental.car_rental.dto.customer
 
-import org.jetbrains.annotations.NotNull
+import jakarta.validation.constraints.NotNull
 import org.mapstruct.Mapper
 import org.mapstruct.factory.Mappers
 import org.rental.car_rental.model.Customer
@@ -27,6 +27,5 @@ interface CustomerCreateMapper {
     }
 
     fun customerToDto(customer: Customer): CustomerCreateDto
-
     fun dtoToCustomer(customer: CustomerCreateDto): Customer
 }

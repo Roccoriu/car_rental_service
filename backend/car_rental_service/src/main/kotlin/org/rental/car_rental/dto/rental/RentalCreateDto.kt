@@ -1,6 +1,6 @@
 package org.rental.car_rental.dto.rental
 
-import org.jetbrains.annotations.NotNull
+import jakarta.validation.constraints.NotNull
 import org.mapstruct.Mapper
 import org.mapstruct.factory.Mappers
 import org.rental.car_rental.dto.car.CarCreateUpdateDto
@@ -28,7 +28,6 @@ interface RentalCreateMapper {
         val INSTANCE: RentalCreateMapper = Mappers.getMapper(RentalCreateMapper::class.java)
     }
 
-    fun customerToDto(rental: Rental): RentalCreateDto
-
-    fun dtoToCustomer(rental: RentalCreateDto): Rental
+    fun rentalToDto(rental: Rental): RentalCreateDto
+    fun dtoToRental(rental: RentalCreateDto): Rental
 }

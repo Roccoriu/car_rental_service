@@ -1,11 +1,11 @@
 package org.rental.car_rental.dto.car
 
 import jakarta.validation.constraints.NotNull
-import org.mapstruct.Mapper
-import org.mapstruct.factory.Mappers
-import org.rental.car_rental.model.Car
 
-data class CarCreateUpdateDto(
+data class CarUpdateDto(
+        @field:NotNull
+        val id: Long,
+
         @field:NotNull
         val category: String,
 
@@ -33,14 +33,3 @@ data class CarCreateUpdateDto(
         @field:NotNull
         val image: String
 )
-
-@Mapper
-interface CarCreateUpdateMapper {
-    companion object {
-        val INSTANCE: CarCreateUpdateMapper = Mappers.getMapper(CarCreateUpdateMapper::class.java)
-    }
-
-    fun carToDto(car: Car): CarCreateUpdateDto
-    fun dtoToCar(car: CarCreateUpdateDto): Car
-
-}

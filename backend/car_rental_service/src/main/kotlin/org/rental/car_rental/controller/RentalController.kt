@@ -1,6 +1,7 @@
 package org.rental.car_rental.controller
 
 import org.rental.car_rental.dto.rental.RentalCreateDto
+import org.rental.car_rental.dto.rental.RentalUpdateDto
 import org.rental.car_rental.model.Rental
 import org.rental.car_rental.service.RentalService
 import org.springframework.http.HttpStatus
@@ -32,7 +33,7 @@ class RentalController(private val rentalService: RentalService) {
 
     @PutMapping("/{id}")
     fun putRental(
-            @RequestBody rentalDto: RentalCreateDto,
+            @RequestBody rentalDto: RentalUpdateDto,
             @PathVariable id: Long,
     ): ResponseEntity<Rental> {
         val updatedRental = rentalService.updateRental(id, rentalDto)
