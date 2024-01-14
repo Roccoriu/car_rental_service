@@ -1,6 +1,8 @@
 package org.rental.car_rental.controller
 
+import jakarta.validation.Valid
 import org.rental.car_rental.dto.rental.RentalCreateDto
+import org.rental.car_rental.dto.rental.RentalUpdateDto
 import org.rental.car_rental.model.Rental
 import org.rental.car_rental.service.RentalService
 import org.springframework.http.HttpStatus
@@ -22,26 +24,26 @@ class RentalController(private val rentalService: RentalService) {
     fun getRentals(): List<Rental> = rentalService.getAllRentals()
 
     @GetMapping("/{id}")
-    fun getRental(@PathVariable id: String): Optional<Rental> = rentalService.getRentalsById(id.toLong())
+    fun getRental(@PathVariable id: Long): Rental = rentalService.getRentalsById(id)
 
     @PostMapping
-    fun postRental(@RequestBody rentalDto: RentalCreateDto): ResponseEntity<Rental> {
+    fun postRental(@Valid @RequestBody rentalDto: RentalCreateDto): ResponseEntity<Rental> {
         val createdRental = rentalService.createRental(rentalDto)
         return ResponseEntity(createdRental, HttpStatus.CREATED)
     }
 
     @PutMapping("/{id}")
     fun putRental(
-            @RequestBody rentalDto: RentalCreateDto,
-            @PathVariable id: String
+            @PathVariable id: Long,
+            @Valid @RequestBody rentalDto: RentalUpdateDto,
     ): ResponseEntity<Rental> {
-        val updatedRental = rentalService.updateRental(rentalDto)
+        val updatedRental = rentalService.updateRental(id, rentalDto)
         return ResponseEntity(updatedRental, HttpStatus.CREATED)
     }
 
     @DeleteMapping("/{id}")
-    fun deleteRental(@PathVariable id: String): ResponseEntity<Map<String, String>> {
-        val deletedRental = rentalService.deleteRental(id.toLong())
+    fun deleteRental(@PathVariable id: Long): ResponseEntity<Map<String, String>> {
+        val deletedRental = rentalService.deleteRental(id)
         return ResponseEntity(
                 mapOf("message" to "successfully deleted", "resource" to deletedRental.toString()),
                 HttpStatus.OK
