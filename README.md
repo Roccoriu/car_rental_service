@@ -17,7 +17,7 @@ What things you need to install the software:
 - Java JDK 17
 - Kotlin 1.8
 - Spring Boot 3.1.5
-- Angular Version
+- Angular 17.0
 - Node.js 21.5.0
 
 ## 🛠 Installation
