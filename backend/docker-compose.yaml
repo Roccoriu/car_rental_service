@@ -1,0 +1,17 @@
+version: '3.1'
+
+services: 
+  db: 
+    image: postgres
+    restart: always
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Vieh12468
+      POSTGRES_DB: car_rental
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - pgsql:/var/lib/postgresql/data/pgdata
+
+volumes:
+  pgsql:
+
