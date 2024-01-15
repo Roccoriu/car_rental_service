@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/v1/cars")
 class CarController(private val carService: CarService) {
     @GetMapping
+    @CrossOrigin
     fun getCars(): List<Car> = carService.getAllCars()
 
 

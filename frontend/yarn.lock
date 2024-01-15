@@ -3413,6 +3413,7 @@ __metadata:
     karma-coverage: "npm:~2.2.1"
     karma-jasmine: "npm:~5.1.0"
     karma-jasmine-html-reporter: "npm:~2.1.0"
+    nswag: "npm:^14.0.1"
     primeflex: "npm:^3.3.1"
     primeicons: "npm:^6.0.1"
     primeng: "npm:^17.3.1"
@@ -6699,6 +6700,15 @@ __metadata:
   dependencies:
     path-key: "npm:^3.0.0"
   checksum: 6f9353a95288f8455cf64cbeb707b28826a7f29690244c1e4bb61ec573256e021b6ad6651b394eb1ccfd00d6ec50147253aba2c5fe58a57ceb111fad62c519ac
+  languageName: node
+  linkType: hard
+
+"nswag@npm:^14.0.1":
+  version: 14.0.1
+  resolution: "nswag@npm:14.0.1"
+  bin:
+    nswag: bin/nswag.js
+  checksum: befe707ca19246214bc9448b8a9fa467c72c50a5cfb74e31c5b7e8963e6021ff4d1922a72a302f720c8593d3a4b4cdbf2017ba37de471f7a086dc19c8ce34c7d
   languageName: node
   linkType: hard
 
