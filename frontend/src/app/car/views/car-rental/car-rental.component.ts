@@ -9,10 +9,19 @@ import { Car, Client } from 'src/app/core/services/service-clients';
 export class CarRentalComponent {
 
   cars: Car[] = [];
+  filterdCars: Car[] = [];
 
   constructor(private serviceClient: Client) { }
 
   ngOnInit(): void {
-    this.serviceClient.getCars().subscribe(cars => this.cars = cars);
+    this.serviceClient.getCars().subscribe(cars => {
+      this.cars = cars
+      this.filterdCars = cars;
+    });
+  }
+
+  filterdCarsChange(cars: Car[]) {
+    console.log(cars);
+    this.filterdCars = cars;
   }
 }

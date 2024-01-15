@@ -1,57 +1,65 @@
 <div class="col-fixed lg:col-2 mr-4 flex p-0 flex-column w-full">
-    <div class="flex flex-column p-0">
-        <a tabindex="0"
-            class="cursor-pointer text-900 font-medium mb-3 hover:text-primary transition-duration-150">Sports car</a>
-        <a tabindex="0"
-            class="cursor-pointer text-900 font-medium mb-3 hover:text-primary transition-duration-150">Minivan</a>
-        <a tabindex="0"
-            class="cursor-pointer text-900 font-medium mb-3 hover:text-primary transition-duration-150">
-            Coupe</a>
-        <a tabindex="0"
-            class="cursor-pointer text-900 font-medium mb-3 hover:text-primary transition-duration-150">
-            SUV</a>
-        <a tabindex="0"
-            class="cursor-pointer text-900 font-medium mb-3 hover:text-primary transition-duration-150">Pickup</a>
-        <a tabindex="0"
-            class="cursor-pointer text-900 font-medium mb-3 hover:text-primary transition-duration-150">Family car</a>
-        <a tabindex="0"
-            class="cursor-pointer text-900 font-medium mb-3 hover:text-primary transition-duration-150">City car</a>
-            <a tabindex="0" class="block cursor-pointer my-3 text-primary font-medium">Show all...</a>
-    </div>
-    <p-divider styleClass="w-full m-0 p-0"></p-divider>
 
     <p-accordion [multiple]="true" styleClass="-mb-1 mt-3">
-        <p-accordionTab [selected]="true" header="Brand ({{selectedBrands ? selectedBrands.length : '0'}})">
+        <p-accordionTab [selected]="false" header="Brand ({{selectedCategories? selectedCategories.length : '0'}})">
+            <div class="transition-all transition-duration-400 transition-ease-in-out">
+                @for(possibleCategorie of possibleCategories; let idx = $index; track idx){
+                <div class="flex w-full justify-content-between">
+                    <div class="field-checkbox">
+                        <p-checkbox [value]="possibleCategorie[0]" [inputId]="possibleCategorie[0]"
+                            [(ngModel)]="selectedCategories" (onChange)="filterCars()"></p-checkbox>
+                        <label [for]="possibleCategorie[0]" class="text-900">{{possibleCategorie[0]}}</label>
+                    </div>
+                    <p-badge [value]="possibleCategorie[1]"
+                        styleClass="mr-2 bg-gray-200 text-gray-900 p-0 border-circle"></p-badge>
+                </div>
+                }
+            </div>
+        </p-accordionTab>
+
+        <p-accordionTab [selected]="false" header="Brand ({{selectedBrands ? selectedBrands.length : '0'}})">
             <div class="transition-all transition-duration-400 transition-ease-in-out">
                 @for(possibleBrand of possibleBrands; let idx = $index; track idx){
                 <div class="flex w-full justify-content-between">
                     <div class="field-checkbox">
-                        <p-checkbox [value]="possibleBrand.name" [inputId]="possibleBrand.name" [(ngModel)]="selectedBrands"></p-checkbox>
-                        <label [for]="possibleBrand.name" class="text-900">{{possibleBrand.name}}</label>
+                        <p-checkbox [value]="possibleBrand[0]" [inputId]="possibleBrand[0]" [(ngModel)]="selectedBrands"
+                            (onChange)="filterCars()"></p-checkbox>
+                        <label [for]="possibleBrand[0]" class="text-900">{{possibleBrand[0]}}</label>
                     </div>
-                    <p-badge [value]="possibleBrand.amount" styleClass="mr-2 bg-gray-200 text-gray-900 p-0 border-circle"></p-badge>
+                    <p-badge [value]="possibleBrand[1]"
+                        styleClass="mr-2 bg-gray-200 text-gray-900 p-0 border-circle"></p-badge>
                 </div>
-            }
+                }
             </div>
         </p-accordionTab>
-        <p-accordionTab [selected]="true" header="Price Range">
+        <p-accordionTab [selected]="false" header="Price Range">
             <div class="transition-all transition-duration-400 transition-ease-in-out">
-                <p-slider [(ngModel)]="rangeValues" [range]="true" styleClass="mt-3 mx-auto"
-                    [style]="{'max-width':'93%'}"></p-slider>
+                <p-slider [(ngModel)]="rangeValues" [range]="true" styleClass="mt-3 mx-auto" [min]="minPrice"
+                    [max]="maxPrice" [style]="{'max-width':'93%'}" (onChange)="filterCars()"></p-slider>
                 <div class="flex my-4">
-                    <p-inputNumber placeholder="$10" [(ngModel)]="rangeValues[0]" [min]="rangeValues[0]"
+                    <p-inputNumber placeholder="10CHF" [(ngModel)]="rangeValues[0]" (ngModelChange)="filterCars()"
                         inputStyleClass="w-full mr-3"></p-inputNumber>
-                    <p-inputNumber placeholder="$10000" [max]="rangeValues[1]" [(ngModel)]="rangeValues[1]"
+                    <p-inputNumber placeholder="100CHF" [(ngModel)]="rangeValues[1]" (ngModelChange)="filterCars()"
                         inputStyleClass="w-full"></p-inputNumber>
                 </div>
             </div>
         </p-accordionTab>
-        <p-accordionTab [selected]="true" header="Color ({{selectedColors.length}})">
+        <p-accordionTab [selected]="false" header="Min Seats">
+            <div class="transition-all transition-duration-400 transition-ease-in-out">
+                <p-slider [(ngModel)]="selectetminSeats" styleClass="mt-3 mx-auto" (onChange)="filterCars()"
+                    [min]="minSeats" [max]="maxSeats" [style]="{'max-width':'93%'}"></p-slider>
+                <div class="flex my-4">
+                    <p-inputNumber placeholder="2" [(ngModel)]="selectetminSeats" (ngModelChange)="filterCars()"
+                        inputStyleClass="w-full mr-3"></p-inputNumber>
+                </div>
+            </div>
+        </p-accordionTab>
+        <p-accordionTab [selected]="false" header="Color ({{selectedColors.length}})">
             <div class="transition-all transition-duration-400 transition-ease-in-out">
                 <div class="grid mb-3">
                     <div class="col-4 flex flex-column align-items-center">
                         <div class="w-3rem h-3rem border-circle bg-gray-900 cursor-pointer border-none flex justify-content-center align-items-center"
-                            (click)="selectedColors.indexOf('Black') == -1 ? selectedColors.push('Black') : selectedColors.splice(selectedColors.indexOf('Black'), 1)">
+                            (click)="selectedColors.indexOf('Black') == -1 ? selectedColors.push('Black') : selectedColors.splice(selectedColors.indexOf('Black'), 1); filterCars()">
                             <i class="pi pi-check text-2xl text-white"
                                 *ngIf="selectedColors.indexOf('Black') !== -1"></i>
                         </div>
@@ -59,7 +67,7 @@
                     </div>
                     <div class="col-4 flex flex-column align-items-center">
                         <div class="w-3rem h-3rem border-circle bg-orange-500 cursor-pointer border-none flex justify-content-center align-items-center"
-                            (click)="selectedColors.indexOf('Orange') == -1 ? selectedColors.push('Orange') : selectedColors.splice(selectedColors.indexOf('Orange'), 1)">
+                            (click)="selectedColors.indexOf('Orange') == -1 ? selectedColors.push('Orange') : selectedColors.splice(selectedColors.indexOf('Orange'), 1); filterCars()">
                             <i class="pi pi-check text-2xl text-white"
                                 *ngIf="selectedColors.indexOf('Orange') !== -1"></i>
                         </div>
@@ -67,38 +75,41 @@
                     </div>
                     <div class="col-4 flex flex-column align-items-center">
                         <div class="w-3rem h-3rem border-circle bg-indigo-500 cursor-pointer border-none flex justify-content-center align-items-center"
-                            (click)="selectedColors.indexOf('Indigo') == -1 ? selectedColors.push('Indigo') : selectedColors.splice(selectedColors.indexOf('Indigo'), 1)">
+                            (click)="selectedColors.indexOf('Blue') == -1 ? selectedColors.push('Blue') : selectedColors.splice(selectedColors.indexOf('Blue'), 1); filterCars()">
                             <i class="pi pi-check text-2xl text-white"
-                                *ngIf="selectedColors.indexOf('Indigo') !== -1"></i>
+                                *ngIf="selectedColors.indexOf('Blue') !== -1"></i>
                         </div>
-                        <p class="text-900 text-sm text-center mt-1">Indigo</p>
+                        <p class="text-900 text-sm text-center mt-1">Blue</p>
+                    </div>
+                    <div class="col-4 flex flex-column align-items-center">
+                        <div class="w-3rem h-3rem border-circle bg-green-500 cursor-pointer border-none flex justify-content-center align-items-center"
+                            (click)="selectedColors.indexOf('Green') == -1 ? selectedColors.push('Green') : selectedColors.splice(selectedColors.indexOf('Green'), 1); filterCars()">
+                            <i class="pi pi-check text-2xl text-white"
+                                *ngIf="selectedColors.indexOf('Green') !== -1"></i>
+                        </div>
+                        <p class="text-900 text-sm text-center mt-1">Green</p>
                     </div>
                     <div class="col-4 flex flex-column align-items-center">
                         <div class="w-3rem h-3rem border-circle bg-gray-500 cursor-pointer border-none flex justify-content-center align-items-center"
-                            (click)="selectedColors.indexOf('Gray') == -1 ? selectedColors.push('Gray') : selectedColors.splice(selectedColors.indexOf('Gray'), 1)">
+                            (click)="selectedColors.indexOf('Grey') == -1 ? selectedColors.push('Grey') : selectedColors.splice(selectedColors.indexOf('Grey'), 1); filterCars()">
                             <i class="pi pi-check text-2xl text-white"
-                                *ngIf="selectedColors.indexOf('Gray') !== -1"></i>
+                                *ngIf="selectedColors.indexOf('Grey') !== -1"></i>
                         </div>
-                        <p class="text-900 text-sm text-center mt-1">Gray</p>
+                        <p class="text-900 text-sm text-center mt-1">Grey</p>
                     </div>
                     <div class="col-4 flex flex-column align-items-center">
-                        <div class="w-3rem h-3rem border-circle bg-cyan-500 cursor-pointer border-none flex justify-content-center align-items-center"
-                            (click)="selectedColors.indexOf('Cyan') == -1 ? selectedColors.push('Cyan') : selectedColors.splice(selectedColors.indexOf('Cyan'), 1)">
+                        <div class="w-3rem h-3rem border-circle bg-primary-300 cursor-pointer border-none flex justify-content-center align-items-center"
+                            (click)="selectedColors.indexOf('Other') == -1 ? selectedColors.push('Other') : selectedColors.splice(selectedColors.indexOf('Other'), 1); filterCars()">
                             <i class="pi pi-check text-2xl text-white"
-                                *ngIf="selectedColors.indexOf('Cyan') !== -1"></i>
+                                *ngIf="selectedColors.indexOf('Other') !== -1"></i>
                         </div>
-                        <p class="text-900 text-sm text-center mt-1">Cyan</p>
-                    </div>
-                    <div class="col-4 flex flex-column align-items-center">
-                        <div class="w-3rem h-3rem border-circle bg-pink-500 cursor-pointer border-none flex justify-content-center align-items-center"
-                            (click)="selectedColors.indexOf('Pink') == -1 ? selectedColors.push('Pink') : selectedColors.splice(selectedColors.indexOf('Pink'), 1)">
-                            <i class="pi pi-check text-2xl text-white"
-                                *ngIf="selectedColors.indexOf('Pink') !== -1"></i>
-                        </div>
-                        <p class="text-900 text-sm text-center mt-1">Pink</p>
+                        <p class="text-900 text-sm text-center mt-1">Other</p>
                     </div>
                 </div>
             </div>
+        </p-accordionTab>
+        <p-accordionTab [selected]="true" header="Is Automatic">
+            <p-inputSwitch (onChange)="filterCars()" [(ngModel)]="isAutomatic"></p-inputSwitch>
         </p-accordionTab>
     </p-accordion>
 </div>

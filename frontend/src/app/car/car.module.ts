@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CalendarModule } from 'primeng/calendar';
 import { CarRentDialogComponent } from './components/car-rent-dialog/car-rent-dialog.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 
 
@@ -41,6 +42,7 @@ import { CarRentDialogComponent } from './components/car-rent-dialog/car-rent-di
     DynamicDialogModule,
     CalendarModule,
     ReactiveFormsModule,
+    InputSwitchModule,
   ],
   providers: [DialogService]
 })
