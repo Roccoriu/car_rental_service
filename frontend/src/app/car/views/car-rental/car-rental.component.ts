@@ -10,6 +10,7 @@ export class CarRentalComponent {
 
   cars: Car[] = [];
   filterdCars: Car[] = [];
+  searchedCars: Car[] = [];
 
   constructor(private serviceClient: Client) { }
 
@@ -17,11 +18,16 @@ export class CarRentalComponent {
     this.serviceClient.getCars().subscribe(cars => {
       this.cars = cars
       this.filterdCars = cars;
+      this.searchedCars = cars;
     });
   }
 
   filterdCarsChange(cars: Car[]) {
-    console.log(cars);
     this.filterdCars = cars;
+    this.searchedCars = cars;
+  }
+
+  searchCars(cars: Car[]) {
+    this.searchedCars = cars;
   }
 }

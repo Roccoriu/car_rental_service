@@ -11,7 +11,8 @@
             <div class="flex flex-wrap lg:flex-nowrap">
                 <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
                     <div class="flex flex-row flex-wrap">
-                        @for(car of filterdCars; track car.id){
+                        <app-car-rental-seach [cars]="filterdCars" (filterdCars)="searchCars($event)"></app-car-rental-seach>
+                        @for(car of searchedCars; track car.id){
                         <app-car-card class="col-12 md:col-6 lg:col-3 mb-5 md:mb-0" [car]="car"></app-car-card>
                         }
                     </div>

@@ -18,6 +18,7 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CalendarModule } from 'primeng/calendar';
 import { CarRentDialogComponent } from './components/car-rent-dialog/car-rent-dialog.component';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { CarRentalSeachComponent } from './components/car-rental-seach/car-rental-seach.component';
 
 
 
@@ -25,7 +26,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 
 
 @NgModule({
-  declarations: [CarRentalComponent, CarRentalFilterComponent, CarCardComponent, CarRentDialogComponent],
+  declarations: [CarRentalComponent, CarRentalFilterComponent, CarCardComponent, CarRentDialogComponent, CarRentalSeachComponent],
   imports: [
     CommonModule,
     DividerModule,
