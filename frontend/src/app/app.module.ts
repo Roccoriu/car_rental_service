@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { CarModule } from './car/car.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminCarModule } from './admin-car/admin-car.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     LayoutModule,
     CarModule,
-    HttpClientModule
+    HttpClientModule,
+    AdminCarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

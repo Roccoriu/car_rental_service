@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './views/header/header.component';
 import { FooterComponent } from './views/footer/footer.component';
 import { StyleClassModule } from 'primeng/styleclass';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -10,7 +12,10 @@ import { StyleClassModule } from 'primeng/styleclass';
   declarations: [HeaderComponent, FooterComponent],
   imports: [
     CommonModule,
-    StyleClassModule 
+    StyleClassModule,
+    FormsModule,
+    RouterModule,
+
   ],
   exports: [
     HeaderComponent,

@@ -17,6 +17,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AdminCarDialogComponent } from './components/admin-car-dialog/admin-car-dialog.component';
 import { AdminCarListComponent } from './views/admin-car-list/admin-car-list.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 
 
 @NgModule({
@@ -40,6 +43,6 @@ import { AdminCarListComponent } from './views/admin-car-list/admin-car-list.com
     DropdownModule,
     MultiSelectModule,
   ],
-  providers: [DialogService]
+  providers: [DialogService, ConfirmationService, MessageService]
 })
 export class AdminCarModule { }
