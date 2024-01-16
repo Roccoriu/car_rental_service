@@ -10,10 +10,17 @@
             style="min-height:25rem;">
             <div class="flex flex-wrap lg:flex-nowrap">
                 <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+                    <div class="flex flex-row">
+                        <app-car-rental-seach [cars]="filterdCars"
+                            (filterdCars)="searchCars($event)"></app-car-rental-seach>
+                        <p-button class="mx-4"
+                            [icon]="sortDirection === 'down' ? 'pi pi-sort-amount-down' : 'pi pi-sort-amount-up'"
+                            [rounded]="true" [outlined]="true" (onClick)="sortList()"></p-button>
+                            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [dateFormat]="'dd.mm.yy'"></p-calendar>
+                    </div>
                     <div class="flex flex-row flex-wrap">
-                        <app-car-rental-seach [cars]="filterdCars" (filterdCars)="searchCars($event)"></app-car-rental-seach>
                         @for(car of searchedCars; track car.id){
-                        <app-car-card class="col-12 md:col-6 lg:col-3 mb-5 md:mb-0" [car]="car"></app-car-card>
+                        <app-car-card class="col-12 md:col-6 lg:col-3 mb-5 md:mb-0" [car]="car" [dates]="rangeDates"></app-car-card>
                         }
                     </div>
                 </div>

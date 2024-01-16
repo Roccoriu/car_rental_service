@@ -7,14 +7,7 @@ import org.rental.car_rental.model.Rental
 import org.rental.car_rental.service.RentalService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
@@ -27,6 +20,7 @@ class RentalController(private val rentalService: RentalService) {
     fun getRental(@PathVariable id: Long): Rental = rentalService.getRentalsById(id)
 
     @PostMapping
+    @CrossOrigin
     fun postRental(@Valid @RequestBody rentalDto: RentalCreateDto): ResponseEntity<Rental> {
         val createdRental = rentalService.createRental(rentalDto)
         return ResponseEntity(createdRental, HttpStatus.CREATED)

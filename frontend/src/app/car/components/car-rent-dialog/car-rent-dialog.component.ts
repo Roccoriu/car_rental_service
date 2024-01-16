@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { Client, CustomerCreateDto, RentalCreateDto } from 'src/app/core/services/service-clients';
 
 @Component({
   selector: 'app-car-rent-dialog',
@@ -24,7 +25,7 @@ export class CarRentDialogComponent {
     endDate: new FormControl('', [Validators.required]),
   });
 
-  constructor(private config: DynamicDialogConfig) { }
+  constructor(private config: DynamicDialogConfig, private clientService: Client) { }
 
   ngOnInit(): void {
     this.car = this.config.data;
@@ -41,13 +42,11 @@ export class CarRentDialogComponent {
     if (this.rentFormGroup.invalid) {
       return;
     }
-    //const registerAccount = new RegisterAccountDto({
-    //  firstname: this.registerFormGroup.value.firstname,
-    //  lastname: this.registerFormGroup.value.lastname,
-    //  email: this.registerFormGroup.value.email,
-    //  password: this.registerFormGroup.value.password,
-    //  phoneNumber: this.registerFormGroup.value.phoneNumber,
-    //});
-    //this.registerAccount.emit(registerAccount);
-  }
+    let rental = new RentalCreateDto({ car: this.car, startDate: this.f.startDate.value, endDate: this.f.endDate.value, customer: new CustomerCreateDto({ dateOfBirth: this.f.birthday.value, email: this.f.email.value, firstName: this.f.firstname.value, lastName: this.f.lastname.value }) });
+    this.clientService.postRental(rental).subscribe((rental) => {
+      console.log(rental);
+      this.submitted = false;
+      this.rentFormGroup.reset();
+    });
+    }
 }
