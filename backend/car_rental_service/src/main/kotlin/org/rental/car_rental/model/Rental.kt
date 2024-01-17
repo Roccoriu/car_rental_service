@@ -10,14 +10,14 @@ data class Rental(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
-    val startDate: LocalDate = LocalDate.now(),
-    val endDate: LocalDate = LocalDate.now(),
+    var startDate: LocalDate = LocalDate.now(),
+    var endDate: LocalDate = LocalDate.now(),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
-    val customer: Customer? = null,
+    var customer: Customer? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
-    val car: Car? = null,
+    var car: Car? = null,
 )

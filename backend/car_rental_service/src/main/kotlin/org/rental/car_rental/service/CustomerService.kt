@@ -1,31 +1,39 @@
 package org.rental.car_rental.service
 
-import jakarta.persistence.EntityNotFoundException
 import org.rental.car_rental.dto.customer.CustomerCreateDto
 import org.rental.car_rental.dto.customer.CustomerCreateMapper
 import org.rental.car_rental.error.exception.ResourceNotFoundException
 import org.rental.car_rental.model.Customer
 import org.rental.car_rental.repository.CustomerRepository
+import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Service
-import java.util.Optional
+
+interface CustomerService {
+    fun getAllCustomers(): List<Customer>
+    fun getCustomerById(id: Long): Customer
+    fun createCustomer(customerDto: CustomerCreateDto): Customer
+    fun updateCustomer(id: Long, customerDto: CustomerCreateDto): Customer
+    fun deleteCustomer(id: Long)
+}
 
 @Service
-class CustomerService(private val customerRepository: CustomerRepository) {
-    fun getAllCustomers(): List<Customer> = customerRepository.findAll()
+@Primary
+class CustomerServiceImpl(private val customerRepository: CustomerRepository) : CustomerService {
+    override fun getAllCustomers(): List<Customer> = customerRepository.findAll()
 
-    fun getCustomerById(id: Long): Customer = customerRepository
-            .findById(id)
-            .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") }
+    override fun getCustomerById(id: Long): Customer = customerRepository
+        .findById(id)
+        .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") }
 
-    fun createCustomer(customerDto: CustomerCreateDto): Customer {
+    override fun createCustomer(customerDto: CustomerCreateDto): Customer {
         val customer = CustomerCreateMapper.INSTANCE.dtoToCustomer(customerDto)
         return customerRepository.save(customer)
     }
 
-    fun updateCustomer(id: Long, customerDto: CustomerCreateDto): Customer {
+    override fun updateCustomer(id: Long, customerDto: CustomerCreateDto): Customer {
         customerRepository
-                .findById(id)
-                .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") }
+            .findById(id)
+            .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") }
 
         val customer = CustomerCreateMapper.INSTANCE.dtoToCustomer(customerDto)
 
@@ -33,5 +41,5 @@ class CustomerService(private val customerRepository: CustomerRepository) {
         return customerRepository.save(customer)
     }
 
-    fun deleteCustomer(id: Long) = customerRepository.deleteById(id)
+    override fun deleteCustomer(id: Long) = customerRepository.deleteById(id)
 }
