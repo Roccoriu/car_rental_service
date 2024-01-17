@@ -34,7 +34,7 @@ data class CarCreateUpdateDto(
     val seats: Int,
 
     @field:NotNull
-    val image: String
+    val imageData: String
 )
 
 @Mapper(componentModel = "spring")

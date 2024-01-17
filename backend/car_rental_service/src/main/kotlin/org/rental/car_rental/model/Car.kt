@@ -18,7 +18,7 @@ data class Car(
     val rentPriceDay: Double,
     val isAutomatic: Boolean,
     val seats: Int,
-    val image: String,
+    var image: String? = null,
 
     @OneToMany(mappedBy = "car", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @JsonBackReference

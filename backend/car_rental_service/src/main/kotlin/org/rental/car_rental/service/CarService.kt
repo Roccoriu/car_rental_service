@@ -8,7 +8,9 @@ import org.rental.car_rental.error.exception.ResourceNotFoundException
 import org.rental.car_rental.model.Car
 import org.springframework.stereotype.Service
 import org.rental.car_rental.repository.CarRepository
+import org.rental.car_rental.utils.S3Service
 import org.springframework.context.annotation.Primary
+import java.util.*
 
 interface CarService {
     fun getAllCars(): List<CarGetDto>
@@ -24,6 +26,7 @@ class CarServiceImpl(
     private val carRepository: CarRepository,
     private val carGetMapper: CarGetMapper,
     private val carCreateUpdateMapper: CarCreateUpdateMapper,
+    private val s3Service: S3Service
 ) : CarService {
     override fun getAllCars(): List<CarGetDto> =
         carRepository.findAll().map(carGetMapper::carToDto)
@@ -33,7 +36,14 @@ class CarServiceImpl(
         .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") }
 
     override fun createCar(carDto: CarCreateUpdateDto): Car {
+        val imageData = Base64.getDecoder().decode(carDto.imageData)
+
+        val imageKey = s3Service.generateObjectId(imageData)
+        s3Service.uploadToS3("joltx-car-rental", imageKey, imageData)
+
         val car = carCreateUpdateMapper.dtoToCar(carDto)
+
+        car.image = imageKey
         return carRepository.save(car)
     }
 
