@@ -42,11 +42,24 @@ export class CarRentDialogComponent {
     if (this.rentFormGroup.invalid) {
       return;
     }
-    let rental = new RentalCreateDto({ car: this.car, startDate: this.f.startDate.value, endDate: this.f.endDate.value, customer: new CustomerCreateDto({ dateOfBirth: this.f.birthday.value, email: this.f.email.value, firstName: this.f.firstname.value, lastName: this.f.lastname.value }) });
-    this.clientService.postRental(rental).subscribe((rental) => {
-      console.log(rental);
-      this.submitted = false;
-      this.rentFormGroup.reset();
+
+    let customer = new CustomerCreateDto();
+    customer.firstName = this.f.firstname.value;
+    customer.lastName = this.f.lastname.value;
+    customer.email = this.f.email.value;
+    customer.dateOfBirth = this.f.birthday.value;
+    this.clientService.postCustomer(customer).subscribe((customer) => {
+      console.log(customer);
+      let rental = new RentalCreateDto();
+      rental.customerId = 1;
+      rental.carId = this.car.id;
+      rental.startDate = this.f.startDate.value;
+      rental.endDate = this.f.endDate.value;
+      this.clientService.postRental(rental).subscribe((rental) => {
+        console.log(rental);
+        this.submitted = false;
+        this.rentFormGroup.reset();
+      });
     });
-    }
+  }
 }

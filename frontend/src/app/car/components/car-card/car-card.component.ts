@@ -21,7 +21,7 @@ export class CarCardComponent {
   private checkCarAvailability(dates: any): void {
     const startDate = new Date(dates.startDate);
     const endDate = new Date(dates.endDate);
-
+    if(this.car?.rentals === undefined || this.car?.rentals.length === 0) return;
     for (const rental of this.car.rentals) {
       const rentalStart = new Date(rental.startDate);
       const rentalEnd = new Date(rental.endDate);

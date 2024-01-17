@@ -22,7 +22,7 @@ class CarController(private val carService: CarService) {
     @PostMapping
     fun postCar(@Valid @RequestBody carDto: CarCreateUpdateDto): ResponseEntity<Car> {
         val createdCar = carService.createCar(carDto)
-        return ResponseEntity(createdCar, HttpStatus.CREATED)
+        return ResponseEntity(createdCar, HttpStatus.OK)
     }
 
     @PutMapping("/{id}")

@@ -23,7 +23,7 @@ export interface IClient {
     /**
      * @return OK
      */
-    putRental(id: number, body: RentalUpdateDto): Observable<Rental>;
+    putRental(id: number, body: RentalCreateDto): Observable<Rental>;
     /**
      * @return OK
      */
@@ -148,7 +148,7 @@ export class Client implements IClient {
     /**
      * @return OK
      */
-    putRental(id: number, body: RentalUpdateDto): Observable<Rental> {
+    putRental(id: number, body: RentalCreateDto): Observable<Rental> {
         let url_ = this.baseUrl + "/v1/rental/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -956,163 +956,15 @@ export class Client implements IClient {
     }
 }
 
-export class CarUpdateDto implements ICarUpdateDto {
-    id!: number;
-    category!: string;
-    brand!: string;
-    model!: string;
-    year!: number;
-    color!: string;
-    rentPriceDay!: number;
-    seats!: number;
-    image!: string;
-    automatic!: boolean;
-
-    [key: string]: any;
-
-    constructor(data?: ICarUpdateDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.id = _data["id"];
-            this.category = _data["category"];
-            this.brand = _data["brand"];
-            this.model = _data["model"];
-            this.year = _data["year"];
-            this.color = _data["color"];
-            this.rentPriceDay = _data["rentPriceDay"];
-            this.seats = _data["seats"];
-            this.image = _data["image"];
-            this.automatic = _data["automatic"];
-        }
-    }
-
-    static fromJS(data: any): CarUpdateDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CarUpdateDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["id"] = this.id;
-        data["category"] = this.category;
-        data["brand"] = this.brand;
-        data["model"] = this.model;
-        data["year"] = this.year;
-        data["color"] = this.color;
-        data["rentPriceDay"] = this.rentPriceDay;
-        data["seats"] = this.seats;
-        data["image"] = this.image;
-        data["automatic"] = this.automatic;
-        return data;
-    }
-}
-
-export interface ICarUpdateDto {
-    id: number;
-    category: string;
-    brand: string;
-    model: string;
-    year: number;
-    color: string;
-    rentPriceDay: number;
-    seats: number;
-    image: string;
-    automatic: boolean;
-
-    [key: string]: any;
-}
-
-export class CustomerUpdateDto implements ICustomerUpdateDto {
-    id!: number;
-    firstName!: string;
-    lastName!: string;
-    dateOfBirth!: Date;
-    email!: string;
-
-    [key: string]: any;
-
-    constructor(data?: ICustomerUpdateDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.id = _data["id"];
-            this.firstName = _data["firstName"];
-            this.lastName = _data["lastName"];
-            this.dateOfBirth = _data["dateOfBirth"] ? new Date(_data["dateOfBirth"].toString()) : <any>undefined;
-            this.email = _data["email"];
-        }
-    }
-
-    static fromJS(data: any): CustomerUpdateDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CustomerUpdateDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["id"] = this.id;
-        data["firstName"] = this.firstName;
-        data["lastName"] = this.lastName;
-        data["dateOfBirth"] = this.dateOfBirth ? formatDate(this.dateOfBirth) : <any>undefined;
-        data["email"] = this.email;
-        return data;
-    }
-}
-
-export interface ICustomerUpdateDto {
-    id: number;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: Date;
-    email: string;
-
-    [key: string]: any;
-}
-
-export class RentalUpdateDto implements IRentalUpdateDto {
+export class RentalCreateDto implements IRentalCreateDto {
     startDate!: Date;
     endDate!: Date;
-    customer!: CustomerUpdateDto;
-    car!: CarUpdateDto;
+    customerId!: number;
+    carId!: number;
 
     [key: string]: any;
 
-    constructor(data?: IRentalUpdateDto) {
+    constructor(data?: IRentalCreateDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1129,14 +981,14 @@ export class RentalUpdateDto implements IRentalUpdateDto {
             }
             this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : <any>undefined;
             this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : <any>undefined;
-            this.customer = _data["customer"] ? CustomerUpdateDto.fromJS(_data["customer"]) : <any>undefined;
-            this.car = _data["car"] ? CarUpdateDto.fromJS(_data["car"]) : <any>undefined;
+            this.customerId = _data["customerId"];
+            this.carId = _data["carId"];
         }
     }
 
-    static fromJS(data: any): RentalUpdateDto {
+    static fromJS(data: any): RentalCreateDto {
         data = typeof data === 'object' ? data : {};
-        let result = new RentalUpdateDto();
+        let result = new RentalCreateDto();
         result.init(data);
         return result;
     }
@@ -1149,17 +1001,17 @@ export class RentalUpdateDto implements IRentalUpdateDto {
         }
         data["startDate"] = this.startDate ? formatDate(this.startDate) : <any>undefined;
         data["endDate"] = this.endDate ? formatDate(this.endDate) : <any>undefined;
-        data["customer"] = this.customer ? this.customer.toJSON() : <any>undefined;
-        data["car"] = this.car ? this.car.toJSON() : <any>undefined;
+        data["customerId"] = this.customerId;
+        data["carId"] = this.carId;
         return data;
     }
 }
 
-export interface IRentalUpdateDto {
+export interface IRentalCreateDto {
     startDate: Date;
     endDate: Date;
-    customer: CustomerUpdateDto;
-    car: CarUpdateDto;
+    customerId: number;
+    carId: number;
 
     [key: string]: any;
 }
@@ -1536,70 +1388,6 @@ export interface ICarCreateUpdateDto {
     seats: number;
     image: string;
     automatic: boolean;
-
-    [key: string]: any;
-}
-
-export class RentalCreateDto implements IRentalCreateDto {
-    startDate!: Date;
-    endDate!: Date;
-    customer!: CustomerCreateDto;
-    car!: CarCreateUpdateDto;
-
-    [key: string]: any;
-
-    constructor(data?: IRentalCreateDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.customer = new CustomerCreateDto();
-            this.car = new CarCreateUpdateDto();
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : <any>undefined;
-            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : <any>undefined;
-            this.customer = _data["customer"] ? CustomerCreateDto.fromJS(_data["customer"]) : new CustomerCreateDto();
-            this.car = _data["car"] ? CarCreateUpdateDto.fromJS(_data["car"]) : new CarCreateUpdateDto();
-        }
-    }
-
-    static fromJS(data: any): RentalCreateDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new RentalCreateDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["startDate"] = this.startDate ? formatDate(this.startDate) : <any>undefined;
-        data["endDate"] = this.endDate ? formatDate(this.endDate) : <any>undefined;
-        data["customer"] = this.customer ? this.customer.toJSON() : <any>undefined;
-        data["car"] = this.car ? this.car.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-export interface IRentalCreateDto {
-    startDate: Date;
-    endDate: Date;
-    customer: CustomerCreateDto;
-    car: CarCreateUpdateDto;
 
     [key: string]: any;
 }
