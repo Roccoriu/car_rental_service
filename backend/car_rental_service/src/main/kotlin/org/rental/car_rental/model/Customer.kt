@@ -1,5 +1,6 @@
 package org.rental.car_rental.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*;
 import java.time.LocalDate
 import java.util.*
@@ -16,5 +17,6 @@ class Customer {
     val email: String = "";
 
     @OneToMany(mappedBy = "customer", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @JsonBackReference
     val rentals: List<Rental> = mutableListOf();
 }

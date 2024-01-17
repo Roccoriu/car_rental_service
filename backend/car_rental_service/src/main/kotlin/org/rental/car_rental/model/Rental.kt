@@ -5,19 +5,19 @@ import java.time.LocalDate
 
 @Entity
 @Table(name = "rental")
-class Rental {
+data class Rental(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0;
+    var id: Long = 0,
 
-    val startDate: LocalDate = LocalDate.now();
-    val endDate: LocalDate = LocalDate.now();
+    val startDate: LocalDate = LocalDate.now(),
+    val endDate: LocalDate = LocalDate.now(),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
-    val customer: Customer? = null;
+    val customer: Customer? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
-    val car: Car? = null;
-}
+    val car: Car? = null,
+)

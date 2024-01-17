@@ -9,27 +9,17 @@ import org.rental.car_rental.model.Rental
 import java.time.LocalDate
 
 data class RentalCreateDto(
-        @field:NotNull
-        @field:Future
-        val startDate: LocalDate,
+    @field:NotNull
+    @field:Future
+    val startDate: LocalDate,
 
-        @field:NotNull
-        @field:Future
-        val endDate: LocalDate,
+    @field:NotNull
+    @field:Future
+    val endDate: LocalDate,
 
-        @field:NotNull
-        val customer: CustomerCreateDto,
+    @field:NotNull
+    val customerId: Long,
 
-        @field:NotNull
-        val car: CarCreateUpdateDto
+    @field:NotNull
+    val carId: Long
 )
-
-@Mapper
-interface RentalCreateMapper {
-    companion object {
-        val INSTANCE: RentalCreateMapper = Mappers.getMapper(RentalCreateMapper::class.java)
-    }
-
-    fun rentalToDto(rental: Rental): RentalCreateDto
-    fun dtoToRental(rental: RentalCreateDto): Rental
-}
