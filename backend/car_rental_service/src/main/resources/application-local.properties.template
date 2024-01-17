@@ -1,0 +1,3 @@
+spring.datasource.url=jdbc:postgresql://CHANGE_ME/car_rental
+spring.datasource.username=CHANGE_ME
+spring.datasource.password=CHANGE_ME
