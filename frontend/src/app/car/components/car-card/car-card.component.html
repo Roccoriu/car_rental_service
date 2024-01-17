@@ -16,8 +16,11 @@
         <span class="text-500">12 reviews</span>
     </div>
     <div class="mb-4">
-        <span class="line-through text-600">{{car.rentPriceDay}}CHF</span>
         <span class="font-bold text-900 ml-2">{{car.rentPriceDay}}CHF</span>
     </div>
-    <p-button label="Rent this Car" icon="pi pi-shopping-cart" class="w-full"></p-button>
+    @if(isRentable){
+    <p-button label="Rent now" (onClick)="rentCar()" icon="pi pi-shopping-cart" class="w-full"></p-button>
+    }@else {
+    <p-button label="Not available" icon="pi pi-shopping-cart" class="w-full" [disabled]="true"></p-button>
+    }
 </div>

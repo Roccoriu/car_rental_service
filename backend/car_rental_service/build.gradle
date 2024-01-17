@@ -11,6 +11,10 @@ plugins {
 group = 'org.rental'
 version = '0.0.1-SNAPSHOT'
 
+kapt {
+    correctErrorTypes true
+}
+
 java {
     sourceCompatibility = '17'
 }

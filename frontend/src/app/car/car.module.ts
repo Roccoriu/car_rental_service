@@ -11,15 +11,22 @@ import { SliderModule } from 'primeng/slider';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { CalendarModule } from 'primeng/calendar';
+import { CarRentDialogComponent } from './components/car-rent-dialog/car-rent-dialog.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { CarRentalSeachComponent } from './components/car-rental-seach/car-rental-seach.component';
+
+
 
 
 
 
 @NgModule({
-  declarations: [CarRentalComponent, CarRentalFilterComponent, CarCardComponent],
+  declarations: [CarRentalComponent, CarRentalFilterComponent, CarCardComponent, CarRentDialogComponent, CarRentalSeachComponent],
   imports: [
     CommonModule,
     DividerModule,
@@ -33,6 +40,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     InputTextModule,
     BrowserAnimationsModule,
-  ]
+    DynamicDialogModule,
+    CalendarModule,
+    ReactiveFormsModule,
+    InputSwitchModule,
+  ],
+  providers: [DialogService]
 })
 export class CarModule { }

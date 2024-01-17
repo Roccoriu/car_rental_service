@@ -1,0 +1,169 @@
+<div class="text-center mb-5 overflow-hidden">
+    <div class="text-900 text-3xl font-medium mb-3">Create new Car</div>
+    <form [formGroup]="carFormGroup" (ngSubmit)="submit()">
+        <div class="flex flex-wrap justify-content-around">
+            <div class="w-full md:w-5">
+                <span class="mb-3">
+                    <label for="category1" class="block text-900 font-medium mb-2">Category</label>
+                    <input formControlName="category" id="category1" type="text" pInputText class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.category.errors}" />
+                    @if (submitted && f.category.errors){
+                    <div class="invalid-feedback">
+                        @if (f.category.errors.required){
+                        <small class="p-error">Category is required</small>
+                        }
+                        @else if (f.category.errors.minlength){
+                        <small class="p-error">The Category must be at least 2 characters</small>
+                        }
+                        @else if(f.category.errors.maxlength){
+                        <small class="p-error">The Category can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5">
+                <span class="mb-3">
+                    <label for="brand1" class="block text-900 font-medium mb-2">Brand</label>
+                    <input formControlName="brand" id="brand1" type="text" pInputText class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.brand.errors}" />
+                    @if(submitted && f.brand.errors){
+                    <div class="invalid-feedback">
+                        @if (f.brand.errors.required){
+                        <small class="p-error">Brand is required</small>
+                        } @else if (f.brand.errors.minlength){
+                        <small class="p-error">The Brand must be at least 2 characters</small>
+                        } @else if (f.brand.errors.maxlength){
+                        <small class="p-error">The Brand can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="model1" class="block text-900 font-medium mb-2">Model</label>
+                    <input formControlName="model" id="model1" type="text" pInputText class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.model.errors}" />
+                    @if(submitted && f.model.errors){
+                    <div class="invalid-feedback">
+                        @if (f.model.errors.required){
+                        <small class="p-error">Model is required</small>
+                        } @else if (f.model.errors.minlength){
+                        <small class="p-error">The Model must be at least 2 characters</small>
+                        } @else if (f.model.errors.maxlength){
+                        <small class="p-error">The Model can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="year1" class="block text-900 font-medium mb-2">Year</label>
+                    <input formControlName="year" id="year1" type="text" pInputText class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.year.errors}" />
+                    @if(submitted && f.year.errors){
+                    <div class="invalid-feedback">
+                        @if (f.year.errors.required){
+                        <small class="p-error">Year is required</small>
+                        } @else if (f.year.errors.minlength){
+                        <small class="p-error">The Year must be at least 2 characters</small>
+                        } @else if (f.year.errors.maxlength){
+                        <small class="p-error">The Year can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="seats1" class="block text-900 font-medium mb-2">seats</label>
+                    <input formControlName="seats" id="seats1" type="text" pInputText class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.seats.errors}" />
+                    @if(submitted && f.seats.errors){
+                    <div class="invalid-feedback">
+                        @if (f.seats.errors.required){
+                        <small class="p-error">seats is required</small>
+                        } @else if (f.seats.errors.minlength){
+                        <small class="p-error">The seats must be at least 2 characters</small>
+                        } @else if (f.seats.errors.maxlength){
+                        <small class="p-error">The seats can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="rentPriceDay1" class="block text-900 font-medium mb-2">Price</label>
+                    <input formControlName="rentPriceDay" id="rentPriceDay1" type="text" pInputText class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.rentPriceDay.errors}" />
+                    @if(submitted && f.rentPriceDay.errors){
+                    <div class="invalid-feedback">
+                        @if (f.rentPriceDay.errors.required){
+                        <small class="p-error">Price is required</small>
+                        } @else if (f.rentPriceDay.errors.minlength){
+                        <small class="p-error">The Price must be at least 2 characters</small>
+                        } @else if (f.rentPriceDay.errors.maxlength){
+                        <small class="p-error">The Price can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="seats1" class="block text-900 font-medium mb-2">Seats</label>
+                    <input formControlName="seats" id="seats1" type="text" pInputText class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.seats.errors}" />
+                    @if(submitted && f.seats.errors){
+                    <div class="invalid-feedback">
+                        @if (f.seats.errors.required){
+                        <small class="p-error">Seats is required</small>
+                        } @else if (f.seats.errors.minlength){
+                        <small class="p-error">The Seats must be at least 2 characters</small>
+                        } @else if (f.seats.errors.maxlength){
+                        <small class="p-error">The Seats can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="automatic1" class="block text-900 font-medium mb-2">Automatic</label>
+                    <input formControlName="automatic" id="automatic1" type="text" pInputText class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.automatic.errors}" />
+                    @if(submitted && f.automatic.errors){
+                    <div class="invalid-feedback">
+                        @if (f.automatic.errors.required){
+                        <small class="p-error">Automatic is required</small>
+                        } @else if (f.automatic.errors.minlength){
+                        <small class="p-error">The Automatic must be at least 2 characters</small>
+                        } @else if (f.automatic.errors.maxlength){
+                        <small class="p-error">The Automatic can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5">
+                <label htmlFor="upload-image">Bild hochladen</label>
+                <p-fileUpload #imageUpload chooseLabel="auswählen" class="-mt-3" [fileLimit]="1" mode="basic"
+                    accept="image/*" (onSelect)="onSelect($event); imageUpload.clear()" [auto]="true"></p-fileUpload>
+                @if(carFormGroup.get('image')!.value){
+                <img [src]="carFormGroup.get('image')!.value" [width]="120" />
+                }
+                @if(submitted && f.image.errors){
+                <div class="invalid-feedback">
+                    @if(f.image.errors.required){
+                    <small class="p-error">Bild ist erforderlich</small>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+        <button type="submit" pButton pRipple label="Confirm Renting" icon="pi pi-plus" class="w-full"></button>
+    </form>
+</div>

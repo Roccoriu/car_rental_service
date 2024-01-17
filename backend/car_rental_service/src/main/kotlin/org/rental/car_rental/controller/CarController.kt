@@ -12,19 +12,23 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/v1/cars")
 class CarController(private val carService: CarService) {
     @GetMapping
+    @CrossOrigin
     fun getCars(): List<Car> = carService.getAllCars()
 
 
     @GetMapping("/{id}")
+    @CrossOrigin
     fun getCar(@PathVariable id: Long): Car = carService.getCarsById(id)
 
     @PostMapping
+    @CrossOrigin
     fun postCar(@Valid @RequestBody carDto: CarCreateUpdateDto): ResponseEntity<Car> {
         val createdCar = carService.createCar(carDto)
-        return ResponseEntity(createdCar, HttpStatus.CREATED)
+        return ResponseEntity(createdCar, HttpStatus.OK)
     }
 
     @PutMapping("/{id}")
+    @CrossOrigin
     fun putCar(
             @PathVariable id: Long,
             @Valid @RequestBody carDto: CarCreateUpdateDto,
@@ -34,6 +38,7 @@ class CarController(private val carService: CarService) {
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin
     fun deleteCar(@PathVariable id: Long): ResponseEntity<Map<String, String>> {
         val deletedCar = carService.deleteCar(id)
         return ResponseEntity(

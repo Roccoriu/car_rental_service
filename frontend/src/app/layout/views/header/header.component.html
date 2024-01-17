@@ -1,7 +1,7 @@
 <div class="surface-overlay py-3 px-6 flex align-items-center justify-content-between relative lg:static"
     style="min-height: 80px">
     <img src="assets/images/logo.png" alt="Image" height="40" class="mr-0 lg:mr-6">
-    <a pRipple class="cursor-pointer block lg:hidden text-700" pStyleClass="@next" enterClass="hidden"
+    <a pRipple class="cursor-pointer block lg:hidden text-700" pStyleClass="@next" enterFromClass="hidden"
         leaveToClass="hidden" [hideOnOutsideClick]="true">
         <i class="pi pi-bars text-4xl"></i>
     </a>
@@ -9,14 +9,14 @@
         class="align-items-center flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full surface-overlay left-0 top-100 z-1 shadow-2 lg:shadow-none">
         <ul class="list-none p-0 m-0 flex lg:align-items-center select-none flex-column lg:flex-row">
             <li>
-                <a pRipple
+                <a pRipple [routerLink]="['/home']"
                     class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 font-medium border-round cursor-pointer transition-colors transition-duration-150">
                     <i class="pi pi-home mr-2"></i>
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a pRipple
+                <a pRipple [routerLink]="['/admin']"
                     class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 font-medium border-round cursor-pointer transition-colors transition-duration-150">
                     <i class="pi pi-chart-line mr-2"></i>
                     <span>Admin</span>

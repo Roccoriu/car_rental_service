@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Car, Client } from 'src/app/core/services/service-clients';
 
 @Component({
   selector: 'app-car-rental',
@@ -7,31 +8,44 @@ import { Component } from '@angular/core';
 })
 export class CarRentalComponent {
 
-  cars: any[] = [
-    {
-      id: 2,
-      category: "Compact Car",
-      brand: "Honda",
-      model: "Civic",
-      year: 2021,
-      color: "Blue",
-      rentPriceDay: 90.0,
-      isAutomatic: false,
-      seats: 5,
-      image: "assets/images/cars/c2.jpg"
-    },
-    {
-      id: 1,
-      category: "Compact Car",
-      brand: "Toyota",
-      model: "Camry",
-      year: 2022,
-      color: "Red",
-      rentPriceDay: 100.0,
-      isAutomatic: true,
-      seats: 5,
-      image: "assets/images/cars/c1.jpg",
-    }
-  ];
-  
+  cars: Car[] = [];
+  filterdCars: Car[] = [];
+  searchedCars: Car[] = [];
+  sortDirection = 'down';
+  rangeDates: any[] = [];
+
+  constructor(private serviceClient: Client) { }
+
+  ngOnInit(): void {
+    this.rangeDates = [new Date(), new Date(new Date().setDate(new Date().getDate() + 1))];
+    this.serviceClient.getCars().subscribe(cars => {
+      //sort cars by price descending
+      cars.sort((a, b) => b.rentPriceDay - a.rentPriceDay);
+      this.cars = cars
+      this.filterdCars = cars;
+      this.searchedCars = cars;
+    });
+  }
+
+  sortList() {
+    this.sortDirection = this.sortDirection === 'down' ? 'up' : 'down';
+    // Additional sorting logic here
+    this.filterdCars.sort((a, b) => {
+      if (this.sortDirection === 'up') {
+        return a.rentPriceDay - b.rentPriceDay;
+      } else {
+        return b.rentPriceDay - a.rentPriceDay;
+      }
+    });
+}
+
+
+  filterdCarsChange(cars: Car[]) {
+    this.filterdCars = cars;
+    this.searchedCars = cars;
+  }
+
+  searchCars(cars: Car[]) {
+    this.searchedCars = cars;
+  }
 }
