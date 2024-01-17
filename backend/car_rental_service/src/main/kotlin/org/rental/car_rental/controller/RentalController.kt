@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/v1/rental")
 class RentalController(private val rentalService: RentalService) {
     @GetMapping
+    @CrossOrigin
     fun getRentals(): List<Rental> = rentalService.getAllRentals()
 
     @GetMapping("/{id}")
+    @CrossOrigin
     fun getRental(@PathVariable id: Long): Rental = rentalService.getRentalsById(id)
 
     @PostMapping
@@ -25,6 +27,7 @@ class RentalController(private val rentalService: RentalService) {
     }
 
     @PutMapping("/{id}")
+    @CrossOrigin
     fun putRental(
             @PathVariable id: Long,
             @Valid @RequestBody rentalDto: RentalCreateDto,
@@ -34,6 +37,7 @@ class RentalController(private val rentalService: RentalService) {
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin
     fun deleteRental(@PathVariable id: Long): ResponseEntity<Map<String, String>> {
         val deletedRental = rentalService.deleteRental(id)
         return ResponseEntity(

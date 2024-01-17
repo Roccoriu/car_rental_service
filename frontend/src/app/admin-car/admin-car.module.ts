@@ -19,6 +19,9 @@ import { AdminCarDialogComponent } from './components/admin-car-dialog/admin-car
 import { AdminCarListComponent } from './views/admin-car-list/admin-car-list.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { CalendarModule } from 'primeng/calendar';
+
 
 
 
@@ -42,6 +45,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     InputSwitchModule,
     DropdownModule,
     MultiSelectModule,
+    ConfirmPopupModule,
+    CalendarModule
   ],
   providers: [DialogService, ConfirmationService, MessageService]
 })
