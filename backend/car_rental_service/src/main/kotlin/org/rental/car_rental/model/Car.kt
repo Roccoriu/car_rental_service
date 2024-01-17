@@ -1,5 +1,6 @@
 package org.rental.car_rental.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*;
 
 @Entity
@@ -20,5 +21,6 @@ class Car {
     val image: String = "";
 
     @OneToMany(mappedBy = "car", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @JsonBackReference
     val rentals: List<Rental> = mutableListOf();
 }
