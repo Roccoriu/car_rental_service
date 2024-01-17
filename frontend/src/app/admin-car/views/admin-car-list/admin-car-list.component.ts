@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { Car, Client } from 'src/app/core/services/service-clients';
+import { Car, CarCreateUpdateDto, Client } from 'src/app/core/services/service-clients';
 import { AdminCarDialogComponent } from '../../components/admin-car-dialog/admin-car-dialog.component';
 
 @Component({
@@ -28,16 +28,34 @@ export class AdminCarListComponent {
       data: null
     });
 
-    ref.onClose.subscribe((car: Car) => {
-      if (car) {
-        this.clientService.postCar(car).subscribe((car) => {
-          this.cars.push(car);
+    ref.onClose.subscribe((newCar: CarCreateUpdateDto) => {
+      if (newCar) {
+        this.clientService.postCar(newCar).subscribe((newCar) => {
+          this.cars.push(newCar);
         });
       }
     });
   }
 
   openEditCarDialog(car: Car) {
+    const ref = this.dialogService.open(AdminCarDialogComponent, {
+      header: 'Edit Car',
+      width: '70%',
+      data: car
+    });
+
+    ref.onClose.subscribe((newCar: CarCreateUpdateDto) => {
+      if (newCar) {
+        this.clientService.putCar(car.id, newCar).subscribe((newCar) => {
+          this.cars = this.cars.map(c => {
+            if (c.id === newCar.id) {
+              return newCar;
+            }
+            return c;
+          });
+        });
+      }
+    });
 
   }
 
