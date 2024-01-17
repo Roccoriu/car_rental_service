@@ -2,7 +2,6 @@ package org.rental.car_rental.controller
 
 import jakarta.validation.Valid
 import org.rental.car_rental.dto.rental.RentalCreateDto
-import org.rental.car_rental.dto.rental.RentalUpdateDto
 import org.rental.car_rental.model.Rental
 import org.rental.car_rental.service.RentalService
 import org.springframework.http.HttpStatus
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
 
 @RestController
 @RequestMapping("/v1/rental")
@@ -35,7 +33,7 @@ class RentalController(private val rentalService: RentalService) {
     @PutMapping("/{id}")
     fun putRental(
             @PathVariable id: Long,
-            @Valid @RequestBody rentalDto: RentalUpdateDto,
+            @Valid @RequestBody rentalDto: RentalCreateDto,
     ): ResponseEntity<Rental> {
         val updatedRental = rentalService.updateRental(id, rentalDto)
         return ResponseEntity(updatedRental, HttpStatus.CREATED)
