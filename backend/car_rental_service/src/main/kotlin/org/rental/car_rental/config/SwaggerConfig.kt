@@ -10,18 +10,18 @@ import org.springframework.context.annotation.*;
 class SwaggerConfig {
     @Bean
     fun openApi(): OpenAPI {
-        return OpenAPI()
-                .info(Info()
-                        .title("Car Rental Service API")
-                        .version("v1")
-                        .contact(
-                                Contact()
-                                        .name("Rocco Ciccone")
-                                        .email("rocco.ciccone@proton.me")
+        return OpenAPI().info(
+            Info()
+                .title("Car Rental Service API")
+                .version("v1")
+                .contact(
+                    Contact()
+                        .name("Rocco Ciccone")
+                        .email("rocco.ciccone@proton.me")
 
-                        )
-                        .license(License().name("GPLv3"))
                 )
+                .license(License().name("GPLv3"))
+        )
     }
 
 }

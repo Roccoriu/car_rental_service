@@ -2,6 +2,7 @@ package org.rental.car_rental.controller
 
 import jakarta.validation.Valid
 import org.rental.car_rental.dto.car.CarCreateUpdateDto
+import org.rental.car_rental.dto.car.CarGetDto
 import org.rental.car_rental.model.Car
 import org.rental.car_rental.service.CarService
 import org.springframework.http.HttpStatus
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/v1/cars")
 class CarController(private val carService: CarService) {
     @GetMapping
-    fun getCars(): List<Car> = carService.getAllCars()
+    fun getCars(): List<CarGetDto> = carService.getAllCars()
 
 
     @GetMapping("/{id}")
@@ -26,8 +27,8 @@ class CarController(private val carService: CarService) {
 
     @PutMapping("/{id}")
     fun putCar(
-            @PathVariable id: Long,
-            @Valid @RequestBody carDto: CarCreateUpdateDto,
+        @PathVariable id: Long,
+        @Valid @RequestBody carDto: CarCreateUpdateDto,
     ): ResponseEntity<Car> {
         val updatedCar = carService.updateCar(id, carDto)
         return ResponseEntity(updatedCar, HttpStatus.OK)
@@ -37,8 +38,8 @@ class CarController(private val carService: CarService) {
     fun deleteCar(@PathVariable id: Long): ResponseEntity<Map<String, String>> {
         val deletedCar = carService.deleteCar(id)
         return ResponseEntity(
-                mapOf("message" to "successfully deleted", "resource" to deletedCar.toString()),
-                HttpStatus.OK
+            mapOf("message" to "successfully deleted", "resource" to deletedCar.toString()),
+            HttpStatus.OK
         )
     }
 }

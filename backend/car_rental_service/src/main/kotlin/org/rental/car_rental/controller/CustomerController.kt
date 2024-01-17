@@ -2,6 +2,7 @@ package org.rental.car_rental.controller
 
 import jakarta.validation.Valid
 import org.rental.car_rental.dto.customer.CustomerCreateDto
+import org.rental.car_rental.dto.customer.CustomerGetDto
 import org.rental.car_rental.model.Customer
 import org.rental.car_rental.service.CustomerService
 import org.springframework.http.HttpStatus
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/v1/customers")
 class CustomerController(private val customerService: CustomerService) {
     @GetMapping
-    fun getCustomers(): List<Customer> = customerService.getAllCustomers()
+    fun getCustomers(): List<CustomerGetDto> = customerService.getAllCustomers()
 
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id: Long): Customer = customerService.getCustomerById(id)
@@ -32,8 +33,8 @@ class CustomerController(private val customerService: CustomerService) {
 
     @PutMapping("/{id}")
     fun putCustomer(
-            @PathVariable id: Long,
-            @Valid @RequestBody customerDto: CustomerCreateDto,
+        @PathVariable id: Long,
+        @Valid @RequestBody customerDto: CustomerCreateDto,
     ): ResponseEntity<Customer> {
         val newCustomer = customerService.updateCustomer(id, customerDto)
         return ResponseEntity(newCustomer, HttpStatus.CREATED)
@@ -43,8 +44,8 @@ class CustomerController(private val customerService: CustomerService) {
     fun deleteCustomer(@PathVariable id: Long): ResponseEntity<Map<String, String>> {
         val deletedCustomer = customerService.deleteCustomer(id)
         return ResponseEntity(
-                mapOf("message" to "successfully deleted", "resource" to deletedCustomer.toString()),
-                HttpStatus.OK
+            mapOf("message" to "successfully deleted", "resource" to deletedCustomer.toString()),
+            HttpStatus.OK
         )
     }
 
