@@ -10,10 +10,10 @@ import org.rental.car_rental.dto.car.CarCreateUpdateDto
 import org.rental.car_rental.model.Rental
 
 data class RentalGetDto(
-    var startDate: LocalDate = LocalDate.now(),
-    var endDate: LocalDate = LocalDate.now(),
-    var customer: Customer? = null,
-    var car: Car? = null,
+    var startDate: LocalDate ,
+    var endDate: LocalDate ,
+    var customer: Customer,
+    var car: Car,
 )
 
 

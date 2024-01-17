@@ -11,16 +11,16 @@ data class RentalCarGetDto(
 )
 
 data class CarGetDto(
-    val category: String = "",
-    val brand: String = "",
-    val model: String = "",
-    val year: Int = 0,
-    val color: String = "",
-    val rentPriceDay: Double = 0.0,
-    val isAutomatic: Boolean = false,
-    val seats: Int = 0,
-    val image: String = "",
-    val rentals: List<RentalCarGetDto> = mutableListOf(),
+    val category: String,
+    val brand: String,
+    val model: String,
+    val year: Int,
+    val color: String,
+    val rentPriceDay: Double,
+    val isAutomatic: Boolean,
+    val seats: Int,
+    val image: String,
+    val rentals: List<RentalCarGetDto>,
 )
 
 @Mapper(componentModel = "spring")

@@ -12,12 +12,12 @@ data class CustomerRentalCarGetDto(
 )
 
 data class CustomerGetDto(
-    val id: Long = 0,
-    val firstName: String = "",
-    val lastName: String = "",
-    val dateOfBirth: LocalDate? = LocalDate.now(),
-    val email: String = "",
-    val rentals: List<CustomerRentalCarGetDto> = mutableListOf(),
+    val id: Long,
+    val firstName: String,
+    val lastName: String,
+    val dateOfBirth: LocalDate,
+    val email: String,
+    val rentals: List<CustomerRentalCarGetDto>,
 )
 
 

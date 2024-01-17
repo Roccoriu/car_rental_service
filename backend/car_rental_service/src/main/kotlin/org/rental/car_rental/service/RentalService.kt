@@ -46,7 +46,7 @@ class RentalServiceImpl(
             startDate = rentalDto.startDate,
             endDate = rentalDto.endDate,
             customer = customer,
-            car = car
+            car = car,
         )
 
         return rentalRepository.save(rental)
