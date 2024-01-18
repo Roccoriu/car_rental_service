@@ -31,6 +31,11 @@ git clone [repository URL]
 # Navigate to the backend directory
 cd [backend directory name]
 
+# Make sure you have the application.properties file set properly
+# Once done replace the CHANGE_ME values in the application-local.properties 
+cp src/main/resources
+cp application-local.properties.template application-local.properties
+
 # Build the project
 ./gradlew build
 

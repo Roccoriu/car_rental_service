@@ -10,17 +10,17 @@ data class Car(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
-    val category: String = "",
-    val brand: String = "",
-    val model: String = "",
-    val year: Int = 0,
-    val color: String = "",
-    val rentPriceDay: Double = 0.0,
-    val isAutomatic: Boolean = false,
-    val seats: Int = 0,
-    val image: String = "",
+    val category: String,
+    val brand: String,
+    val model: String,
+    val year: Int,
+    val color: String,
+    val rentPriceDay: Double,
+    val isAutomatic: Boolean,
+    val seats: Int,
+    var image: String? = null,
 
     @OneToMany(mappedBy = "car", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @JsonBackReference
-    val rentals: List<Rental> = mutableListOf(),
+    val rentals: List<Rental>? = mutableListOf(),
 )

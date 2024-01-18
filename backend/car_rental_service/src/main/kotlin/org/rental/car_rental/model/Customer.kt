@@ -11,10 +11,10 @@ data class Customer(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
-    val firstName: String = "",
-    val lastName: String = "",
-    val dateOfBirth: LocalDate? = LocalDate.now(),
-    val email: String = "",
+    val firstName: String,
+    val lastName: String,
+    val dateOfBirth: LocalDate,
+    val email: String,
 
     @OneToMany(mappedBy = "customer", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @JsonBackReference

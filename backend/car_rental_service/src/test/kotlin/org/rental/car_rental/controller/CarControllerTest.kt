@@ -2,11 +2,14 @@ package org.rental.car_rental.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
+import org.mapstruct.factory.Mappers
 import org.mockito.Mockito.doNothing
 
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.rental.car_rental.dto.car.CarCreateUpdateDto
+import org.rental.car_rental.dto.car.CarGetMapper
+import org.rental.car_rental.dto.customer.CustomerGetMapper
 import org.rental.car_rental.model.Car
 import org.rental.car_rental.service.CarService
 import org.springframework.test.web.servlet.MockMvc
@@ -23,11 +26,13 @@ class CarControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
 
+    @Autowired
+    private lateinit var objectMapper: ObjectMapper
+
+
     @MockBean
     private lateinit var carService: CarService
 
-    @Autowired
-    private lateinit var objectMapper: ObjectMapper
 
     init {
         MockitoAnnotations.openMocks(this)
@@ -76,7 +81,8 @@ class CarControllerTest {
 
     @Test
     fun getCars() {
-        val testCars = createTestCars()
+        val carGetMapper = Mappers.getMapper(CarGetMapper::class.java)
+        val testCars = createTestCars().map(carGetMapper::carToDto)
 
         `when`(carService.getAllCars()).thenReturn(testCars)
 
