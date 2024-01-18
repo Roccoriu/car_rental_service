@@ -2,14 +2,18 @@ package org.rental.car_rental.service
 
 import org.rental.car_rental.dto.car.CarCreateUpdateDto
 import org.rental.car_rental.dto.car.CarCreateUpdateMapper
+import org.rental.car_rental.dto.car.CarGetDto
+import org.rental.car_rental.dto.car.CarGetMapper
 import org.rental.car_rental.error.exception.ResourceNotFoundException
 import org.rental.car_rental.model.Car
 import org.springframework.stereotype.Service
 import org.rental.car_rental.repository.CarRepository
+import org.rental.car_rental.utils.S3Service
 import org.springframework.context.annotation.Primary
+import java.util.*
 
 interface CarService {
-    fun getAllCars(): List<Car>
+    fun getAllCars(): List<CarGetDto>
     fun getCarsById(id: Long): Car
     fun createCar(carDto: CarCreateUpdateDto): Car
     fun updateCar(id: Long, carDto: CarCreateUpdateDto): Car
@@ -18,15 +22,28 @@ interface CarService {
 
 @Service
 @Primary
-class CarServiceImpl(private val carRepository: CarRepository) : CarService {
-    override fun getAllCars(): List<Car> = carRepository.findAll()
+class CarServiceImpl(
+    private val carRepository: CarRepository,
+    private val carGetMapper: CarGetMapper,
+    private val carCreateUpdateMapper: CarCreateUpdateMapper,
+    private val s3Service: S3Service
+) : CarService {
+    override fun getAllCars(): List<CarGetDto> =
+        carRepository.findAll().map(carGetMapper::carToDto)
 
     override fun getCarsById(id: Long): Car = carRepository
         .findById(id)
         .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") }
 
     override fun createCar(carDto: CarCreateUpdateDto): Car {
-        val car = CarCreateUpdateMapper.INSTANCE.dtoToCar(carDto)
+        val imageData = Base64.getDecoder().decode(carDto.imageData)
+
+        val imageKey = s3Service.generateObjectId(imageData)
+        s3Service.uploadToS3("joltx-car-rental", imageKey, imageData)
+
+        val car = carCreateUpdateMapper.dtoToCar(carDto)
+
+        car.image = imageKey
         return carRepository.save(car)
     }
 
@@ -35,7 +52,7 @@ class CarServiceImpl(private val carRepository: CarRepository) : CarService {
             .findById(id)
             .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") };
 
-        val updatedCar = CarCreateUpdateMapper.INSTANCE.dtoToCar(carDto)
+        val updatedCar = carCreateUpdateMapper.dtoToCar(carDto)
 
         updatedCar.id = id
         return carRepository.save(updatedCar)

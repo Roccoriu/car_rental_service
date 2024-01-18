@@ -10,8 +10,8 @@ data class Rental(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
-    var startDate: LocalDate = LocalDate.now(),
-    var endDate: LocalDate = LocalDate.now(),
+    var startDate: LocalDate,
+    var endDate: LocalDate,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
