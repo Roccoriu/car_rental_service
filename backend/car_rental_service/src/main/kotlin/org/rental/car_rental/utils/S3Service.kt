@@ -49,6 +49,6 @@ class S3ServiceImpl : S3Service {
         val digest = MessageDigest.getInstance("SHA-256")
         val contentHash = digest.digest(file).joinToString("") { "%02x".format(it) }
 
-        return "${contentHash}_${uuid}_${timeStamp}"
+        return "${uuid}_${timeStamp}_${contentHash}"
     }
 }
