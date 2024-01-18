@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Car, Client } from 'src/app/core/services/service-clients';
+import { Car, CarGetDto, Client } from 'src/app/core/services/service-clients';
 
 @Component({
   selector: 'app-car-rental',
@@ -8,9 +8,9 @@ import { Car, Client } from 'src/app/core/services/service-clients';
 })
 export class CarRentalComponent {
 
-  cars: Car[] = [];
-  filterdCars: Car[] = [];
-  searchedCars: Car[] = [];
+  cars: CarGetDto[] = [];
+  filterdCars: CarGetDto[] = [];
+  searchedCars: CarGetDto[] = [];
   sortDirection = 'down';
   rangeDates: any[] = [];
 

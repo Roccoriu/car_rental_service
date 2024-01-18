@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { Car, CarCreateUpdateDto, Client } from 'src/app/core/services/service-clients';
+import { Car, CarCreateUpdateDto, CarGetDto, Client } from 'src/app/core/services/service-clients';
 import { AdminCarDialogComponent } from '../../components/admin-car-dialog/admin-car-dialog.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { AdminCarDialogComponent } from '../../components/admin-car-dialog/admin
 })
 export class AdminCarListComponent {
 
-  cars: Car[] = [];
+  cars: CarGetDto[] = [];
 
   constructor(private clientService: Client, private confirmationService: ConfirmationService, private dialogService: DialogService) { }
 

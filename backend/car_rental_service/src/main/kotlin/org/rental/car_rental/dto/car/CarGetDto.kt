@@ -11,6 +11,7 @@ data class RentalCarGetDto(
 )
 
 data class CarGetDto(
+    val id: Int,
     val category: String,
     val brand: String,
     val model: String,

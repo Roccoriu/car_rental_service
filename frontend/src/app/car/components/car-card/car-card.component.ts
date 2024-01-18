@@ -10,30 +10,35 @@ import { CarRentDialogComponent } from '../car-rent-dialog/car-rent-dialog.compo
 export class CarCardComponent {
   @Input() car: any;
   @Input() set dates(dates: any) {
-    if(!dates) return;
+    if (!dates) return;
     this.checkCarAvailability(dates);
   }
   isRentable = true;
 
-  constructor(private dialogService: DialogService) {}
+  constructor(private dialogService: DialogService) { }
 
 
   private checkCarAvailability(dates: any): void {
-    const startDate = new Date(dates.startDate);
-    const endDate = new Date(dates.endDate);
-    if(this.car?.rentals === undefined || this.car?.rentals.length === 0) return;
+    this.isRentable = true;
+    const startDate = new Date(dates[0]);
+    const endDate = new Date(dates[1]);
+    if (this.car?.rentals === undefined || this.car?.rentals.length === 0) return;
     for (const rental of this.car.rentals) {
       const rentalStart = new Date(rental.startDate);
       const rentalEnd = new Date(rental.endDate);
 
       // Check for date overlap
-      if (startDate < rentalEnd && endDate > rentalStart) {
+      console.log(startDate, endDate, rentalStart, rentalEnd);
+      if ((startDate >= rentalStart && startDate <= rentalEnd) || // New start is within an existing rental
+        (endDate >= rentalStart && endDate <= rentalEnd) || // New end is within an existing rental
+        (startDate <= rentalStart && endDate >= rentalEnd)) { // New rental encompasses an existing rental
+        console.log('Car is not available');
         this.isRentable = false;
         break; // Car is not available, no need to check further
       }
     }
   }
-  
+
   rentCar() {
     const ref = this.dialogService.open(CarRentDialogComponent, {
       header: 'Rent Car',

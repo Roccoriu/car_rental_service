@@ -68,11 +68,11 @@ export class AdminCarDialogComponent {
     newCar.category = this.f.category.value;
     newCar.brand = this.f.brand.value;
     newCar.model = this.f.model.value;
-    newCar.year = this.f.year.value;
+    newCar.year = this.f.year.value.getFullYear();
     newCar.color = this.f.color.value;
     newCar.rentPriceDay = this.f.rentPriceDay.value;
     newCar.seats = this.f.seats.value;
-    newCar.image = this.f.image.value;
+    newCar.imageData = this.f.image.value;
     newCar.automatic = this.f.automatic.value;
     console.log(newCar);
 

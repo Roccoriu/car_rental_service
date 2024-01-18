@@ -1,5 +1,5 @@
 <div class="text-center mb-5 overflow-hidden">
-    <div class="text-900 text-3xl font-medium mb-3">{{car.brand}} {{car.model}}</div>
+    <div class="text-900 text-3xl font-medium mb-3">{{car!.brand}} {{car!.model}}</div>
     <form [formGroup]="rentFormGroup" (ngSubmit)="submit()">
         <div class="flex flex-wrap justify-content-around">
             <div class="w-full md:w-5">

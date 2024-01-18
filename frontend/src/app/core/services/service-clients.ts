@@ -55,7 +55,7 @@ export interface IClient {
     /**
      * @return OK
      */
-    getRentals(): Observable<Rental[]>;
+    getRentals(): Observable<RentalGetDto[]>;
     /**
      * @return OK
      */
@@ -63,7 +63,7 @@ export interface IClient {
     /**
      * @return OK
      */
-    getCustomers(): Observable<Customer[]>;
+    getCustomers(): Observable<CustomerGetDto[]>;
     /**
      * @return OK
      */
@@ -71,7 +71,7 @@ export interface IClient {
     /**
      * @return OK
      */
-    getCars(): Observable<Car[]>;
+    getCars(): Observable<CarGetDto[]>;
     /**
      * @return OK
      */
@@ -130,7 +130,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -188,7 +188,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -242,7 +242,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -305,7 +305,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -363,7 +363,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -417,7 +417,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -480,7 +480,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -538,7 +538,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -592,7 +592,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -619,7 +619,7 @@ export class Client implements IClient {
     /**
      * @return OK
      */
-    getRentals(): Observable<Rental[]> {
+    getRentals(): Observable<RentalGetDto[]> {
         let url_ = this.baseUrl + "/v1/rental";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -638,28 +638,28 @@ export class Client implements IClient {
                 try {
                     return this.processGetRentals(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<Rental[]>;
+                    return _observableThrow(e) as any as Observable<RentalGetDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<Rental[]>;
+                return _observableThrow(response_) as any as Observable<RentalGetDto[]>;
         }));
     }
 
-    protected processGetRentals(response: HttpResponseBase): Observable<Rental[]> {
+    protected processGetRentals(response: HttpResponseBase): Observable<RentalGetDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(Rental.fromJS(item));
+                    result200!.push(RentalGetDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -714,7 +714,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -732,7 +732,7 @@ export class Client implements IClient {
     /**
      * @return OK
      */
-    getCustomers(): Observable<Customer[]> {
+    getCustomers(): Observable<CustomerGetDto[]> {
         let url_ = this.baseUrl + "/v1/customers";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -751,28 +751,28 @@ export class Client implements IClient {
                 try {
                     return this.processGetCustomers(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<Customer[]>;
+                    return _observableThrow(e) as any as Observable<CustomerGetDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<Customer[]>;
+                return _observableThrow(response_) as any as Observable<CustomerGetDto[]>;
         }));
     }
 
-    protected processGetCustomers(response: HttpResponseBase): Observable<Customer[]> {
+    protected processGetCustomers(response: HttpResponseBase): Observable<CustomerGetDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(Customer.fromJS(item));
+                    result200!.push(CustomerGetDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -827,7 +827,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -845,7 +845,7 @@ export class Client implements IClient {
     /**
      * @return OK
      */
-    getCars(): Observable<Car[]> {
+    getCars(): Observable<CarGetDto[]> {
         let url_ = this.baseUrl + "/v1/cars";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -864,28 +864,28 @@ export class Client implements IClient {
                 try {
                     return this.processGetCars(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<Car[]>;
+                    return _observableThrow(e) as any as Observable<CarGetDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<Car[]>;
+                return _observableThrow(response_) as any as Observable<CarGetDto[]>;
         }));
     }
 
-    protected processGetCars(response: HttpResponseBase): Observable<Car[]> {
+    protected processGetCars(response: HttpResponseBase): Observable<CarGetDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(Car.fromJS(item));
+                    result200!.push(CarGetDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -940,7 +940,7 @@ export class Client implements IClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 200 || status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -1320,7 +1320,7 @@ export class CarCreateUpdateDto implements ICarCreateUpdateDto {
     color!: string;
     rentPriceDay!: number;
     seats!: number;
-    image!: string;
+    imageData!: string;
     automatic!: boolean;
 
     [key: string]: any;
@@ -1347,7 +1347,7 @@ export class CarCreateUpdateDto implements ICarCreateUpdateDto {
             this.color = _data["color"];
             this.rentPriceDay = _data["rentPriceDay"];
             this.seats = _data["seats"];
-            this.image = _data["image"];
+            this.imageData = _data["imageData"];
             this.automatic = _data["automatic"];
         }
     }
@@ -1372,7 +1372,7 @@ export class CarCreateUpdateDto implements ICarCreateUpdateDto {
         data["color"] = this.color;
         data["rentPriceDay"] = this.rentPriceDay;
         data["seats"] = this.seats;
-        data["image"] = this.image;
+        data["imageData"] = this.imageData;
         data["automatic"] = this.automatic;
         return data;
     }
@@ -1386,8 +1386,348 @@ export interface ICarCreateUpdateDto {
     color: string;
     rentPriceDay: number;
     seats: number;
-    image: string;
+    imageData: string;
     automatic: boolean;
+
+    [key: string]: any;
+}
+
+export class RentalGetDto implements IRentalGetDto {
+    startDate!: Date;
+    endDate!: Date;
+    customer!: Customer;
+    car!: Car;
+
+    [key: string]: any;
+
+    constructor(data?: IRentalGetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            for (var property in _data) {
+                if (_data.hasOwnProperty(property))
+                    this[property] = _data[property];
+            }
+            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : <any>undefined;
+            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : <any>undefined;
+            this.customer = _data["customer"] ? Customer.fromJS(_data["customer"]) : <any>undefined;
+            this.car = _data["car"] ? Car.fromJS(_data["car"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): RentalGetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RentalGetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+        data["startDate"] = this.startDate ? formatDate(this.startDate) : <any>undefined;
+        data["endDate"] = this.endDate ? formatDate(this.endDate) : <any>undefined;
+        data["customer"] = this.customer ? this.customer.toJSON() : <any>undefined;
+        data["car"] = this.car ? this.car.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IRentalGetDto {
+    startDate: Date;
+    endDate: Date;
+    customer: Customer;
+    car: Car;
+
+    [key: string]: any;
+}
+
+export class CustomerGetDto implements ICustomerGetDto {
+    id!: number;
+    firstName!: string;
+    lastName!: string;
+    dateOfBirth!: Date;
+    email!: string;
+    rentals!: CustomerRentalCarGetDto[];
+
+    [key: string]: any;
+
+    constructor(data?: ICustomerGetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            for (var property in _data) {
+                if (_data.hasOwnProperty(property))
+                    this[property] = _data[property];
+            }
+            this.id = _data["id"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.dateOfBirth = _data["dateOfBirth"] ? new Date(_data["dateOfBirth"].toString()) : <any>undefined;
+            this.email = _data["email"];
+            if (Array.isArray(_data["rentals"])) {
+                this.rentals = [] as any;
+                for (let item of _data["rentals"])
+                    this.rentals!.push(CustomerRentalCarGetDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): CustomerGetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CustomerGetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+        data["id"] = this.id;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["dateOfBirth"] = this.dateOfBirth ? formatDate(this.dateOfBirth) : <any>undefined;
+        data["email"] = this.email;
+        if (Array.isArray(this.rentals)) {
+            data["rentals"] = [];
+            for (let item of this.rentals)
+                data["rentals"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface ICustomerGetDto {
+    id: number;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: Date;
+    email: string;
+    rentals: CustomerRentalCarGetDto[];
+
+    [key: string]: any;
+}
+
+export class CustomerRentalCarGetDto implements ICustomerRentalCarGetDto {
+    startDate!: Date;
+    endDate!: Date;
+    car!: Car;
+
+    [key: string]: any;
+
+    constructor(data?: ICustomerRentalCarGetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            for (var property in _data) {
+                if (_data.hasOwnProperty(property))
+                    this[property] = _data[property];
+            }
+            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : <any>undefined;
+            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : <any>undefined;
+            this.car = _data["car"] ? Car.fromJS(_data["car"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CustomerRentalCarGetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CustomerRentalCarGetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+        data["startDate"] = this.startDate ? formatDate(this.startDate) : <any>undefined;
+        data["endDate"] = this.endDate ? formatDate(this.endDate) : <any>undefined;
+        data["car"] = this.car ? this.car.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface ICustomerRentalCarGetDto {
+    startDate: Date;
+    endDate: Date;
+    car: Car;
+
+    [key: string]: any;
+}
+
+export class CarGetDto implements ICarGetDto {
+    id!: number;
+    category!: string;
+    brand!: string;
+    model!: string;
+    year!: number;
+    color!: string;
+    rentPriceDay!: number;
+    seats!: number;
+    image!: string;
+    rentals!: RentalCarGetDto[];
+    automatic!: boolean;
+
+    [key: string]: any;
+
+    constructor(data?: ICarGetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            for (var property in _data) {
+                if (_data.hasOwnProperty(property))
+                    this[property] = _data[property];
+            }
+            this.id = _data["id"];
+            this.category = _data["category"];
+            this.brand = _data["brand"];
+            this.model = _data["model"];
+            this.year = _data["year"];
+            this.color = _data["color"];
+            this.rentPriceDay = _data["rentPriceDay"];
+            this.seats = _data["seats"];
+            this.image = _data["image"];
+            if (Array.isArray(_data["rentals"])) {
+                this.rentals = [] as any;
+                for (let item of _data["rentals"])
+                    this.rentals!.push(RentalCarGetDto.fromJS(item));
+            }
+            this.automatic = _data["automatic"];
+        }
+    }
+
+    static fromJS(data: any): CarGetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CarGetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+        data["id"] = this.id;
+        data["category"] = this.category;
+        data["brand"] = this.brand;
+        data["model"] = this.model;
+        data["year"] = this.year;
+        data["color"] = this.color;
+        data["rentPriceDay"] = this.rentPriceDay;
+        data["seats"] = this.seats;
+        data["image"] = this.image;
+        if (Array.isArray(this.rentals)) {
+            data["rentals"] = [];
+            for (let item of this.rentals)
+                data["rentals"].push(item.toJSON());
+        }
+        data["automatic"] = this.automatic;
+        return data;
+    }
+}
+
+export interface ICarGetDto {
+    id: number;
+    category: string;
+    brand: string;
+    model: string;
+    year: number;
+    color: string;
+    rentPriceDay: number;
+    seats: number;
+    image: string;
+    rentals: RentalCarGetDto[];
+    automatic: boolean;
+
+    [key: string]: any;
+}
+
+export class RentalCarGetDto implements IRentalCarGetDto {
+    startDate!: Date;
+    endDate!: Date;
+
+    [key: string]: any;
+
+    constructor(data?: IRentalCarGetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            for (var property in _data) {
+                if (_data.hasOwnProperty(property))
+                    this[property] = _data[property];
+            }
+            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : <any>undefined;
+            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): RentalCarGetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RentalCarGetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+        data["startDate"] = this.startDate ? formatDate(this.startDate) : <any>undefined;
+        data["endDate"] = this.endDate ? formatDate(this.endDate) : <any>undefined;
+        return data;
+    }
+}
+
+export interface IRentalCarGetDto {
+    startDate: Date;
+    endDate: Date;
 
     [key: string]: any;
 }

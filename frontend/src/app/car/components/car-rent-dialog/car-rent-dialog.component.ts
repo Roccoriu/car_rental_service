@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { Client, CustomerCreateDto, RentalCreateDto } from 'src/app/core/services/service-clients';
+import { CarGetDto, Client, CustomerCreateDto, RentalCreateDto } from 'src/app/core/services/service-clients';
 
 @Component({
   selector: 'app-car-rent-dialog',
@@ -12,7 +12,7 @@ export class CarRentDialogComponent {
 
   submitted: boolean = false;
 
-  car: any;
+  car: CarGetDto | undefined;
   minBirthDate: Date = new Date();
 
   rentFormGroup: FormGroup = new FormGroup({
@@ -52,7 +52,7 @@ export class CarRentDialogComponent {
       console.log(customer);
       let rental = new RentalCreateDto();
       rental.customerId = 1;
-      rental.carId = this.car.id;
+      rental.carId = this.car!.id;
       rental.startDate = this.f.startDate.value;
       rental.endDate = this.f.endDate.value;
       this.clientService.postRental(rental).subscribe((rental) => {
