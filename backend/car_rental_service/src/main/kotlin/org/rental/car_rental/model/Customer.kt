@@ -18,5 +18,5 @@ data class Customer(
 
     @OneToMany(mappedBy = "customer", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @JsonBackReference
-    val rentals: List<Rental> = mutableListOf(),
+    val rentals: List<Rental>? = mutableListOf(),
 )
