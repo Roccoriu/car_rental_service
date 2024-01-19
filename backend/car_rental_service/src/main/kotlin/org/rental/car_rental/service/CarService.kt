@@ -37,14 +37,9 @@ class CarServiceImpl(
 
     override fun createCar(carDto: CarCreateUpdateDto): Car {
         val car = carCreateUpdateMapper.dtoToCar(carDto)
+
         val imageData = carDto.imageData.split(",")
-
-        val decodedImage = Base64.getDecoder().decode(imageData[1])
-
-        val s3ObjectKey = fileService.generateObjectId(decodedImage)
-        val mimeType = fileService.extractMimeType(imageData[0])
-
-        fileService.uploadFile("joltx-car-rental", s3ObjectKey, decodedImage, mimeType)
+        val s3ObjectKey = handleImage(imageData[1], imageData[0])
 
         car.image = s3ObjectKey
         return carRepository.save(car)
@@ -61,11 +56,7 @@ class CarServiceImpl(
         }
 
         val imageData = carDto.imageData.split(",")
-        val decodedImage = Base64.getDecoder().decode(imageData[1])
-        val s3ObjectKey = fileService.generateObjectId(decodedImage)
-        val mimeType = fileService.extractMimeType(imageData[0])
-
-        fileService.uploadFile("joltx-car-rental", s3ObjectKey, decodedImage, mimeType)
+        val s3ObjectKey = handleImage(imageData[1], imageData[0])
 
         updatedCar.id = id
         updatedCar.image = s3ObjectKey
@@ -83,5 +74,15 @@ class CarServiceImpl(
         }
 
         carRepository.deleteById(id)
+    }
+
+    private fun handleImage(imageData: String, dataType: String): String {
+        val decodedImage = Base64.getDecoder().decode(imageData)
+        val s3ObjectKey = fileService.generateObjectId(decodedImage)
+        val mimeType = fileService.extractMimeType(dataType)
+
+        fileService.uploadFile("joltx-car-rental", s3ObjectKey, decodedImage, mimeType)
+
+        return s3ObjectKey
     }
 }
