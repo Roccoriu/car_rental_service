@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 
 import org.mapstruct.factory.Mappers
+import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.rental.car_rental.dto.rental.RentalGetMapper
@@ -14,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -74,5 +76,9 @@ class RentalControllerTest {
 
     @Test
     fun deleteRental() {
+        doNothing().`when`(rentalService).deleteRental(1)
+
+        mockMvc.perform(delete("v1/rental/1"))
+            .andExpect(status().isOk)
     }
 }

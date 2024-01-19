@@ -119,7 +119,6 @@ class CarControllerTest {
                 .content(payload)
         )
             .andExpect(status().isCreated)
-        //.andExpect(content().json(objectMapper.writeValueAsString(newCar)))
     }
 
     @Test
@@ -136,7 +135,6 @@ class CarControllerTest {
                 .content(payload)
         )
             .andExpect(status().isOk)
-        //    .andExpect(content().json(jsonRequest))
 
 
     }
