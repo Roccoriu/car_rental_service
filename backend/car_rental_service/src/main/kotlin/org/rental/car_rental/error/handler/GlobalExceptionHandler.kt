@@ -38,8 +38,12 @@ class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
-    fun handleDeserializationErrors(ex: HttpMessageNotReadableException): ResponseEntity<Map<String, String>> =
-        ResponseEntity(mapOf("error" to "Invalid request"), HttpStatus.BAD_REQUEST)
+    fun handleDeserializationErrors(ex: HttpMessageNotReadableException): ResponseEntity<Map<String, String>> {
+        return ResponseEntity(
+            mapOf("error" to "invalid param${ex.message?.split("parameter")?.get(1)}"),
+            HttpStatus.BAD_REQUEST
+        )
+    }
 
     @ExceptionHandler(S3Exception::class)
     fun handleS3Error(ex: S3Exception): ResponseEntity<Map<String, String>> =

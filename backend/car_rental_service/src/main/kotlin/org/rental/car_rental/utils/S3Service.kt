@@ -9,15 +9,16 @@ import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest
 import software.amazon.awssdk.services.s3.model.DeleteObjectsRequest
+import java.io.File
 import java.nio.ByteBuffer
 import java.security.MessageDigest
 import java.util.UUID
 
 
-interface S3Service {
-    fun uploadToS3(bucketName: String, key: String, file: ByteArray, mimeType: String)
+interface FileService {
+    fun uploadFile(baseDir: String, fileName: String, file: ByteArray, mimeType: String)
 
-    fun deleteFromS3(bucketName: String, key: String)
+    fun deleteFile(baseDir: String, fileName: String)
 
     fun generateObjectId(file: ByteArray): String
 
@@ -26,16 +27,16 @@ interface S3Service {
 
 @Service
 @Primary
-class S3ServiceImpl : S3Service {
+class S3Service : FileService {
     private val s3 = S3Client.builder()
         .region(Region.EU_CENTRAL_1)
         .credentialsProvider(DefaultCredentialsProvider.create())
         .build()
 
-    override fun uploadToS3(bucketName: String, key: String, file: ByteArray, mimeType: String) {
+    override fun uploadFile(baseDir: String, fileName: String, file: ByteArray, mimeType: String) {
         val putObjectRequest = PutObjectRequest.builder()
-            .bucket(bucketName)
-            .key(key)
+            .bucket(baseDir)
+            .key(fileName)
             .contentType(mimeType)
             .contentDisposition("inline")
             .build()
@@ -48,10 +49,10 @@ class S3ServiceImpl : S3Service {
         )
     }
 
-    override fun deleteFromS3(bucketName: String, key: String) {
+    override fun deleteFile(baseDir: String, fileName: String) {
         val deleteObjectRequest = DeleteObjectRequest.builder()
-            .bucket(bucketName)
-            .key(key)
+            .bucket(baseDir)
+            .key(fileName)
             .build()
 
         s3.deleteObject(deleteObjectRequest)
