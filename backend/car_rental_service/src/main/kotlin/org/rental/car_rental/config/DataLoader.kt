@@ -20,9 +20,10 @@ class DataLoader(
             color = "Red",
             rentPriceDay = 50.0,
             seats = 5,
-            image = "c1.png",
+            image = "c1.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Sedan",
             brand = "Honda",
@@ -31,9 +32,10 @@ class DataLoader(
             color = "Blue",
             rentPriceDay = 40.0,
             seats = 4,
-            image = "c2.png",
+            image = "c2.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Sports",
             brand = "Ferrari",
@@ -42,9 +44,10 @@ class DataLoader(
             color = "Yellow",
             rentPriceDay = 200.0,
             seats = 2,
-            image = "c3.png",
+            image = "c3.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Hatchback",
             brand = "Ford",
@@ -53,9 +56,10 @@ class DataLoader(
             color = "Green",
             rentPriceDay = 30.0,
             seats = 4,
-            image = "c4.png",
+            image = "c4.jpg",
             isAutomatic = false
         ),
+
         Car(
             category = "Convertible",
             brand = "BMW",
@@ -64,9 +68,10 @@ class DataLoader(
             color = "Black",
             rentPriceDay = 70.0,
             seats = 2,
-            image = "c5.png",
+            image = "c5.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Truck",
             brand = "Chevrolet",
@@ -75,9 +80,10 @@ class DataLoader(
             color = "White",
             rentPriceDay = 60.0,
             seats = 6,
-            image = "c6.png",
+            image = "c6.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Minivan",
             brand = "Chrysler",
@@ -86,9 +92,10 @@ class DataLoader(
             color = "Silver",
             rentPriceDay = 55.0,
             seats = 7,
-            image = "c7.png",
+            image = "c7.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Coupe",
             brand = "Audi",
@@ -97,9 +104,10 @@ class DataLoader(
             color = "Grey",
             rentPriceDay = 65.0,
             seats = 4,
-            image = "c8.png",
+            image = "c8.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Crossover",
             brand = "Hyundai",
@@ -108,9 +116,10 @@ class DataLoader(
             color = "Orange",
             rentPriceDay = 45.0,
             seats = 5,
-            image = "c9.png",
+            image = "c9.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Luxury",
             brand = "Mercedes",
@@ -119,9 +128,10 @@ class DataLoader(
             color = "Purple",
             rentPriceDay = 100.0,
             seats = 4,
-            image = "c10.png",
+            image = "c10.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "SUV",
             brand = "Toyota",
@@ -130,9 +140,10 @@ class DataLoader(
             color = "Black",
             rentPriceDay = 60.0,
             seats = 5,
-            image = "c11.png",
+            image = "c11.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Sedan",
             brand = "Toyota",
@@ -141,9 +152,10 @@ class DataLoader(
             color = "White",
             rentPriceDay = 45.0,
             seats = 4,
-            image = "c12.png",
+            image = "c12.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Sports",
             brand = "Porsche",
@@ -152,9 +164,10 @@ class DataLoader(
             color = "Red",
             rentPriceDay = 210.0,
             seats = 2,
-            image = "c13.png",
+            image = "c13.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Hatchback",
             brand = "Volkswagen",
@@ -163,9 +176,10 @@ class DataLoader(
             color = "Blue",
             rentPriceDay = 35.0,
             seats = 4,
-            image = "c14.png",
+            image = "c14.jpg",
             isAutomatic = false
         ),
+
         Car(
             category = "Convertible",
             brand = "Mercedes",
@@ -174,9 +188,10 @@ class DataLoader(
             color = "Red",
             rentPriceDay = 80.0,
             seats = 2,
-            image = "c15.png",
+            image = "c15.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Truck",
             brand = "Ford",
@@ -185,9 +200,10 @@ class DataLoader(
             color = "Grey",
             rentPriceDay = 65.0,
             seats = 6,
-            image = "c16.png",
+            image = "c16.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Minivan",
             brand = "Toyota",
@@ -196,9 +212,10 @@ class DataLoader(
             color = "Silver",
             rentPriceDay = 50.0,
             seats = 7,
-            image = "c17.png",
+            image = "c17.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Coupe",
             brand = "BMW",
@@ -207,9 +224,10 @@ class DataLoader(
             color = "Blue",
             rentPriceDay = 75.0,
             seats = 4,
-            image = "c18.png",
+            image = "c18.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Crossover",
             brand = "Nissan",
@@ -218,9 +236,10 @@ class DataLoader(
             color = "Black",
             rentPriceDay = 50.0,
             seats = 5,
-            image = "c19.png",
+            image = "c19.jpg",
             isAutomatic = true
         ),
+
         Car(
             category = "Luxury",
             brand = "Audi",
@@ -229,7 +248,7 @@ class DataLoader(
             color = "White",
             rentPriceDay = 110.0,
             seats = 4,
-            image = "c20.png",
+            image = "c20.jpg",
             isAutomatic = true
         )
     )
