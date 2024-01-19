@@ -32,7 +32,7 @@ class CarController(
     @PutMapping("/{id}")
     fun putCar(
         @PathVariable id: Long,
-        @Valid @RequestBody carDto: CarCreateUpdateDto,
+        @RequestBody @Valid carDto: CarCreateUpdateDto,
     ): ResponseEntity<Car> {
         val updatedCar = carService.updateCar(id, carDto)
         return ResponseEntity(updatedCar, HttpStatus.OK)

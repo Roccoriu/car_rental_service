@@ -1,5 +1,6 @@
 package org.rental.car_rental.service
 
+import com.fasterxml.jackson.databind.ser.Serializers.Base
 import org.rental.car_rental.dto.car.CarCreateUpdateDto
 import org.rental.car_rental.dto.car.CarCreateUpdateMapper
 import org.rental.car_rental.dto.car.CarGetDto
@@ -37,36 +38,40 @@ class CarServiceImpl(
         .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") }
 
     override fun createCar(carDto: CarCreateUpdateDto): Car {
-        val mimeTypePattern = "data:([a-zA-Z]+/[a-zA-Z]+);base64".toRegex()
-
         val car = carCreateUpdateMapper.dtoToCar(carDto)
-        val imageDataParts = carDto.imageData.split(",")
+        val imageData = carDto.imageData.split(",")
 
-        val imageData = Base64.getDecoder().decode(imageDataParts[1])
-        val imageKey = s3Service.generateObjectId(imageData)
+        val decodedImage = Base64.getDecoder().decode(imageData[1])
 
-        val mimeType = imageDataParts.getOrNull(0)
-            ?.let {
-                mimeTypePattern
-                    .find(it)
-                    ?.groupValues
-                    ?.getOrNull(1)
-            } ?: "image/jpg"
+        val s3ObjectKey = s3Service.generateObjectId(decodedImage)
+        val mimeType = s3Service.extractMimeType(imageData[0])
 
-        s3Service.uploadToS3("joltx-car-rental", imageKey, imageData, mimeType)
+        s3Service.uploadToS3("joltx-car-rental", s3ObjectKey, decodedImage, mimeType)
 
-        car.image = imageKey
+        car.image = s3ObjectKey
         return carRepository.save(car)
     }
 
     override fun updateCar(id: Long, carDto: CarCreateUpdateDto): Car {
-        carRepository
+        val updatedCar = carCreateUpdateMapper.dtoToCar(carDto)
+        val existing = carRepository
             .findById(id)
             .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") };
 
-        val updatedCar = carCreateUpdateMapper.dtoToCar(carDto)
+        if (existing.image != null) {
+            s3Service.deleteFromS3("joltx-car-rental", existing.image!!)
+        }
+
+        val imageData = carDto.imageData.split(",")
+        val decodedImage = Base64.getDecoder().decode(imageData[1])
+        val s3ObjectKey = s3Service.generateObjectId(decodedImage)
+        val mimeType = s3Service.extractMimeType(imageData[0])
+
+        s3Service.uploadToS3("joltx-car-rental", s3ObjectKey, decodedImage, mimeType)
 
         updatedCar.id = id
+        updatedCar.image = s3ObjectKey
+
         return carRepository.save(updatedCar)
     }
 
