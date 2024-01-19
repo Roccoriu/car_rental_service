@@ -36,7 +36,7 @@ class CarController(
     @CrossOrigin
     fun putCar(
         @PathVariable id: Long,
-        @Valid @RequestBody carDto: CarCreateUpdateDto,
+        @RequestBody @Valid carDto: CarCreateUpdateDto,
     ): ResponseEntity<Car> {
         val updatedCar = carService.updateCar(id, carDto)
         return ResponseEntity(updatedCar, HttpStatus.OK)
@@ -47,7 +47,7 @@ class CarController(
     fun deleteCar(@PathVariable id: Long): ResponseEntity<Map<String, String>> {
         val deletedCar = carService.deleteCar(id)
         return ResponseEntity(
-            mapOf("message" to "successfully deleted", "resource" to deletedCar.toString()),
+            mapOf("message" to "successfully deleted $id"),
             HttpStatus.OK
         )
     }

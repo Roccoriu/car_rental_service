@@ -35,7 +35,7 @@ class RentalController(private val rentalService: RentalService) {
         @Valid @RequestBody rentalDto: RentalCreateDto,
     ): ResponseEntity<Rental> {
         val updatedRental = rentalService.updateRental(id, rentalDto)
-        return ResponseEntity(updatedRental, HttpStatus.CREATED)
+        return ResponseEntity(updatedRental, HttpStatus.OK)
     }
 
     @DeleteMapping("/{id}")

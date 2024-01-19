@@ -9,15 +9,13 @@ import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.rental.car_rental.dto.car.CarCreateUpdateDto
 import org.rental.car_rental.dto.car.CarGetMapper
-import org.rental.car_rental.dto.customer.CustomerGetMapper
 import org.rental.car_rental.model.Car
 import org.rental.car_rental.service.CarService
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.http.MediaType.APPLICATION_JSON
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 
@@ -28,7 +26,6 @@ class CarControllerTest {
 
     @Autowired
     private lateinit var objectMapper: ObjectMapper
-
 
     @MockBean
     private lateinit var carService: CarService
@@ -76,7 +73,7 @@ class CarControllerTest {
             rentPriceDay = 60.0,
             isAutomatic = true,
             seats = 5,
-            image = "honda_cr-v.jpg",
+            imageData = "honda_cr-v.jpg",
         )
 
     @Test
@@ -87,9 +84,8 @@ class CarControllerTest {
         `when`(carService.getAllCars()).thenReturn(testCars)
 
         mockMvc.perform(
-            MockMvcRequestBuilders
-                .get("/v1/cars")
-                .contentType(APPLICATION_JSON)
+            get("/v1/cars")
+                .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isOk)
             .andExpect(content().json(objectMapper.writeValueAsString(testCars)))
@@ -102,7 +98,7 @@ class CarControllerTest {
 
         mockMvc.perform(
             get("/v1/cars/1")
-                .contentType(APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isOk)
             .andExpect(content().json(objectMapper.writeValueAsString(testCars[1])))
@@ -119,11 +115,10 @@ class CarControllerTest {
 
         mockMvc.perform(
             post("/v1/cars")
-                .contentType(APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(payload)
         )
             .andExpect(status().isCreated)
-        //.andExpect(content().json(objectMapper.writeValueAsString(newCar)))
     }
 
     @Test
@@ -136,11 +131,10 @@ class CarControllerTest {
 
         mockMvc.perform(
             put("/v1/cars/1")
-                .contentType(APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(payload)
         )
             .andExpect(status().isOk)
-        //    .andExpect(content().json(jsonRequest))
 
 
     }
