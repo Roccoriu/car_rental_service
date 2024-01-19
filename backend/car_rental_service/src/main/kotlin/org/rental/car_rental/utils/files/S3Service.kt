@@ -1,4 +1,4 @@
-package org.rental.car_rental.utils
+package org.rental.car_rental.utils.files
 
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Service
@@ -8,22 +8,9 @@ import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest
-import software.amazon.awssdk.services.s3.model.DeleteObjectsRequest
-import java.io.File
 import java.nio.ByteBuffer
 import java.security.MessageDigest
 import java.util.UUID
-
-
-interface FileService {
-    fun uploadFile(baseDir: String, fileName: String, file: ByteArray, mimeType: String)
-
-    fun deleteFile(baseDir: String, fileName: String)
-
-    fun generateObjectId(file: ByteArray): String
-
-    fun extractMimeType(mimeType: String): String
-}
 
 @Service
 @Primary

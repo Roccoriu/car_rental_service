@@ -1,6 +1,5 @@
 package org.rental.car_rental.service
 
-import com.fasterxml.jackson.databind.ser.Serializers.Base
 import org.rental.car_rental.dto.car.CarCreateUpdateDto
 import org.rental.car_rental.dto.car.CarCreateUpdateMapper
 import org.rental.car_rental.dto.car.CarGetDto
@@ -9,11 +8,9 @@ import org.rental.car_rental.error.exception.ResourceNotFoundException
 import org.rental.car_rental.model.Car
 import org.springframework.stereotype.Service
 import org.rental.car_rental.repository.CarRepository
-import org.rental.car_rental.utils.FileService
-import org.rental.car_rental.utils.S3Service
+import org.rental.car_rental.utils.files.FileService
 import org.springframework.context.annotation.Primary
 import java.util.*
-import java.util.regex.Pattern
 
 interface CarService {
     fun getAllCars(): List<CarGetDto>
