@@ -9,6 +9,7 @@ import org.rental.car_rental.error.exception.ResourceNotFoundException
 import org.rental.car_rental.model.Car
 import org.springframework.stereotype.Service
 import org.rental.car_rental.repository.CarRepository
+import org.rental.car_rental.utils.FileService
 import org.rental.car_rental.utils.S3Service
 import org.springframework.context.annotation.Primary
 import java.util.*
@@ -25,7 +26,7 @@ interface CarService {
 @Service
 @Primary
 class CarServiceImpl(
-    private val s3Service: S3Service,
+    private val fileService: FileService,
     private val carGetMapper: CarGetMapper,
     private val carRepository: CarRepository,
     private val carCreateUpdateMapper: CarCreateUpdateMapper,
@@ -43,10 +44,10 @@ class CarServiceImpl(
 
         val decodedImage = Base64.getDecoder().decode(imageData[1])
 
-        val s3ObjectKey = s3Service.generateObjectId(decodedImage)
-        val mimeType = s3Service.extractMimeType(imageData[0])
+        val s3ObjectKey = fileService.generateObjectId(decodedImage)
+        val mimeType = fileService.extractMimeType(imageData[0])
 
-        s3Service.uploadToS3("joltx-car-rental", s3ObjectKey, decodedImage, mimeType)
+        fileService.uploadFile("joltx-car-rental", s3ObjectKey, decodedImage, mimeType)
 
         car.image = s3ObjectKey
         return carRepository.save(car)
@@ -59,15 +60,15 @@ class CarServiceImpl(
             .orElseThrow { ResourceNotFoundException("Item not found with Id: $id") };
 
         if (existing.image != null) {
-            s3Service.deleteFromS3("joltx-car-rental", existing.image!!)
+            fileService.deleteFile("joltx-car-rental", existing.image!!)
         }
 
         val imageData = carDto.imageData.split(",")
         val decodedImage = Base64.getDecoder().decode(imageData[1])
-        val s3ObjectKey = s3Service.generateObjectId(decodedImage)
-        val mimeType = s3Service.extractMimeType(imageData[0])
+        val s3ObjectKey = fileService.generateObjectId(decodedImage)
+        val mimeType = fileService.extractMimeType(imageData[0])
 
-        s3Service.uploadToS3("joltx-car-rental", s3ObjectKey, decodedImage, mimeType)
+        fileService.uploadFile("joltx-car-rental", s3ObjectKey, decodedImage, mimeType)
 
         updatedCar.id = id
         updatedCar.image = s3ObjectKey
@@ -81,7 +82,7 @@ class CarServiceImpl(
             .orElseThrow { ResourceNotFoundException("Item not found with id: $id") }
 
         if (car.image != null) {
-            s3Service.deleteFromS3("joltx-car-rental", car.image!!)
+            fileService.deleteFile("joltx-car-rental", car.image!!)
         }
 
         carRepository.deleteById(id)
