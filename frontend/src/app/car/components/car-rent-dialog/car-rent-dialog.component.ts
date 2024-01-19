@@ -14,21 +14,19 @@ export class CarRentDialogComponent {
   submitted: boolean = false;
 
   car: CarGetDto | undefined;
-  minBirthDate: Date = new Date();
-
+  minBirthDate: Date = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
   rentFormGroup: FormGroup = new FormGroup({
     firstname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
     lastname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    // regex dd.mm.yyyy
     birthday: new FormControl('', [Validators.required, Validators.pattern("")]),
   });
 
-  constructor(private config: DynamicDialogConfig, private clientService: Client, private ref: DynamicDialogRef) { }
+  constructor(private config: DynamicDialogConfig, private clientService: Client, private ref: DynamicDialogRef, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.car = this.config.data;
-    this.minBirthDate.setFullYear(this.minBirthDate.getFullYear() - 18);
+
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -40,7 +38,12 @@ export class CarRentDialogComponent {
     if (this.rentFormGroup.invalid) {
       return;
     }
-
+    //check if customer is 18 or older
+    if (this.f.birthday.value > this.minBirthDate) {
+      this.messageService.add({ severity: 'error', summary: 'Denied', detail: 'You must be 18 or older to rent a car' });
+      this.ref.close();
+      return;
+    }
     let customer = new CustomerCreateDto();
     customer.firstName = this.f.firstname.value;
     customer.lastName = this.f.lastname.value;

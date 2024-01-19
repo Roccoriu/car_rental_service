@@ -59,7 +59,7 @@
             <div class="w-full md:w-5 mb-3">
                 <span class="mb-3">
                     <label for="birthday1" class="block text-900 font-medium mb-2">Birthday</label>
-                    <p-calendar formControlName="birthday" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" appendTo="body" [showIcon]="true" id="birthday1" autocomplete="birthday" class="w-full"
+                    <p-calendar formControlName="birthday" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" [defaultDate]="minBirthDate" appendTo="body" [showIcon]="true" id="birthday1" autocomplete="birthday" class="w-full"
                         [ngClass]="{'ng-invalid ng-dirty': submitted && f.birthday.errors}"></p-calendar>
                     @if(submitted && f.birthday.errors){
                     <div class="invalid-feedback">
