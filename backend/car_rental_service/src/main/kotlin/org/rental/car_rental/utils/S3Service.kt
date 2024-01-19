@@ -7,15 +7,21 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.regions.Region
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest
+import software.amazon.awssdk.services.s3.model.DeleteObjectsRequest
 import java.nio.ByteBuffer
 import java.security.MessageDigest
 import java.util.UUID
 
 
 interface S3Service {
-    fun uploadToS3(bucketName: String, key: String, file: ByteArray)
+    fun uploadToS3(bucketName: String, key: String, file: ByteArray, mimeType: String)
+
+    fun deleteFromS3(bucketName: String, key: String)
 
     fun generateObjectId(file: ByteArray): String
+
+    fun extractMimeType(mimeType: String): String
 }
 
 @Service
@@ -26,11 +32,11 @@ class S3ServiceImpl : S3Service {
         .credentialsProvider(DefaultCredentialsProvider.create())
         .build()
 
-    override fun uploadToS3(bucketName: String, key: String, file: ByteArray) {
+    override fun uploadToS3(bucketName: String, key: String, file: ByteArray, mimeType: String) {
         val putObjectRequest = PutObjectRequest.builder()
             .bucket(bucketName)
             .key(key)
-            .contentType("image/jpeg")
+            .contentType(mimeType)
             .contentDisposition("inline")
             .build()
 
@@ -42,6 +48,15 @@ class S3ServiceImpl : S3Service {
         )
     }
 
+    override fun deleteFromS3(bucketName: String, key: String) {
+        val deleteObjectRequest = DeleteObjectRequest.builder()
+            .bucket(bucketName)
+            .key(key)
+            .build()
+
+        s3.deleteObject(deleteObjectRequest)
+    }
+
     override fun generateObjectId(file: ByteArray): String {
         val uuid = UUID.randomUUID().toString()
         val timeStamp = System.currentTimeMillis()
@@ -50,5 +65,16 @@ class S3ServiceImpl : S3Service {
         val contentHash = digest.digest(file).joinToString("") { "%02x".format(it) }
 
         return "${uuid}_${timeStamp}_${contentHash}"
+    }
+
+    override fun extractMimeType(mimeType: String): String {
+        val mimeTypePattern = "data:([a-zA-Z]+/[a-zA-Z]+);base64".toRegex()
+
+        return mimeType.let {
+            mimeTypePattern
+                .find(it)
+                ?.groupValues
+                ?.getOrNull(1)
+        } ?: "image/jpg"
     }
 }

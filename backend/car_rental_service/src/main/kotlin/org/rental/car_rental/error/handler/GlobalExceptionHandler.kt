@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
+import software.amazon.awssdk.services.s3.model.S3Exception
 import java.lang.Exception
 import java.util.stream.Collectors
 
@@ -40,6 +41,12 @@ class GlobalExceptionHandler {
     fun handleDeserializationErrors(ex: HttpMessageNotReadableException): ResponseEntity<Map<String, String>> =
         ResponseEntity(mapOf("error" to "Invalid request"), HttpStatus.BAD_REQUEST)
 
+    @ExceptionHandler(S3Exception::class)
+    fun handleS3Error(ex: S3Exception): ResponseEntity<Map<String, String>> =
+        ResponseEntity(
+            mapOf("error" to "an error happened while uploading to s3 bucket"),
+            HttpStatus.INTERNAL_SERVER_ERROR
+        )
 
     @ExceptionHandler(Exception::class)
     fun handleInternalServerError(ex: Exception, request: WebRequest): ResponseEntity<String> {
