@@ -25,6 +25,7 @@ export class AdminCarListComponent {
     const ref = this.dialogService.open(AdminCarDialogComponent, {
       header: 'Create Car',
       width: '70%',
+      dismissableMask: true,
       data: null
     });
 
@@ -42,6 +43,7 @@ export class AdminCarListComponent {
     const ref = this.dialogService.open(AdminCarDialogComponent, {
       header: 'Edit Car',
       width: '70%',
+      dismissableMask: true,
       data: car
     });
 

@@ -22,8 +22,6 @@ export class CarRentDialogComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     // regex dd.mm.yyyy
     birthday: new FormControl('', [Validators.required, Validators.pattern("")]),
-    startDate: new FormControl('', [Validators.required]),
-    endDate: new FormControl('', [Validators.required]),
   });
 
   constructor(private config: DynamicDialogConfig, private clientService: Client, private ref: DynamicDialogRef) { }
@@ -50,10 +48,8 @@ export class CarRentDialogComponent {
     customer.dateOfBirth = this.f.birthday.value;
     this.clientService.postCustomer(customer).subscribe((customer) => {
       let rental = new RentalCreateDto();
-      rental.customerId = 1;
+      rental.customerId = customer.id;
       rental.carId = this.car!.id;
-      rental.startDate = this.f.startDate.value;
-      rental.endDate = this.f.endDate.value;
       this.ref.close(rental);
     });
   }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CarRentalComponent } from './views/car-rental/car-rental.component';
+import { CarRentalComponent } from './views/car-rental/car-rental/car-rental.component';
 import { CarRentalFilterComponent } from './components/car-rental-filter/car-rental-filter.component';
 import { CarCardComponent } from './views/car-rental/car-card/car-card.component';
 import { DividerModule } from 'primeng/divider';

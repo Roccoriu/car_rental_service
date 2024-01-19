@@ -72,38 +72,6 @@
                     }
                 </span>
             </div>
-            <div class="w-full md:w-5 mb-3">
-                <span class="mb-3">
-                    <label for="startDate1" class="block text-900 font-medium mb-2">Start Date</label>
-                    <p-calendar formControlName="startDate" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" appendTo="body" [showIcon]="true" id="startDate1" class="w-full"
-                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.startDate.errors}"></p-calendar>
-                    @if(submitted && f.startDate.errors){
-                    <div class="invalid-feedback">
-                        @if(f.startDate.errors.required){
-                        <small class="p-error">Start Date is required</small>
-                        } @else if(f.startDate.errors.startDate){
-                        <small class="p-error">Please enter a valid Start Date </small>
-                        }
-                    </div>
-                    }
-                </span>
-            </div>
-            <div class="w-full md:w-5 mb-3">
-                <span class="mb-3">
-                    <label for="endDate1" class="block text-900 font-medium mb-2">End Date</label>
-                    <p-calendar formControlName="endDate" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" appendTo="body" [showIcon]="true" id="endDate1" class="w-full"
-                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.endDate.errors}"></p-calendar>
-                    @if(submitted && f.endDate.errors){
-                    <div class="invalid-feedback">
-                        @if(f.endDate.errors.required){
-                        <small class="p-error">End Date is required</small>
-                        } @else if(f.endDate.errors.endDate){
-                        <small class="p-error">Please enter a valid End Date </small>
-                        }
-                    </div>
-                    }
-                </span>
-            </div>
         </div>
         <button type="submit" pButton pRipple label="Confirm Renting" icon="pi pi-plus" class="w-full"></button>
     </form>
