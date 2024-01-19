@@ -5,12 +5,9 @@ import org.rental.car_rental.dto.car.CarCreateUpdateDto
 import org.rental.car_rental.dto.car.CarGetDto
 import org.rental.car_rental.model.Car
 import org.rental.car_rental.service.CarService
-import org.rental.car_rental.utils.S3Service
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.multipart.MultipartFile
-import java.util.Base64
 
 @RestController
 @RequestMapping("/v1/cars")
