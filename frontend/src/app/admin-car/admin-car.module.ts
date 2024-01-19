@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -32,7 +31,6 @@ import { CalendarModule } from 'primeng/calendar';
     TableModule,
     ButtonModule,
     InputNumberModule,
-    ToastModule,
     ToolbarModule,
     DialogModule,
     ConfirmDialogModule,

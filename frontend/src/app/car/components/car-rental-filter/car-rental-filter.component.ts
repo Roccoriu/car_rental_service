@@ -101,7 +101,7 @@ export class CarRentalFilterComponent {
       if (this.selectedBrands.length > 0 && !this.selectedBrands.includes(car.brand)) {
         return false;
       }
-      if (this.selectedColors.length > 0 && !this.selectedColors.includes(car.color)) {
+      if ((this.selectedColors.length > 0 && !this.selectedColors.includes(car.color))) {
         return false;
       }
       if (this.selectetminSeats > car.seats) {

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Car } from 'src/app/core/services/service-clients';
+import { CarGetDto } from 'src/app/core/services/service-clients';
 
 @Component({
   selector: 'app-car-rental-seach',
@@ -8,13 +8,12 @@ import { Car } from 'src/app/core/services/service-clients';
 })
 export class CarRentalSeachComponent {
 
-  @Input() cars: Car[] = [];
+  @Input() cars: CarGetDto[] = [];
   @Output() filterdCars = new EventEmitter<any[]>();
 
   constructor() { }
 
   onSearchChange(event: any) {
-    console.log(event.target.value);
     const searchValue = event.target.value.toLowerCase();
     const filterdCars = this.cars.filter(car => {
       return car.brand.toLowerCase().includes(searchValue) ||

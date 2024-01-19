@@ -1,5 +1,5 @@
 <div class="text-center mb-5 overflow-hidden">
-    <div class="text-900 text-3xl font-medium mb-3">{{car.brand}} {{car.model}}</div>
+    <div class="text-900 text-3xl font-medium mb-3">{{car!.brand}} {{car!.model}}</div>
     <form [formGroup]="rentFormGroup" (ngSubmit)="submit()">
         <div class="flex flex-wrap justify-content-around">
             <div class="w-full md:w-5">
@@ -59,7 +59,7 @@
             <div class="w-full md:w-5 mb-3">
                 <span class="mb-3">
                     <label for="birthday1" class="block text-900 font-medium mb-2">Birthday</label>
-                    <p-calendar formControlName="birthday" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" appendTo="body" [showIcon]="true" id="birthday1" autocomplete="birthday" class="w-full"
+                    <p-calendar formControlName="birthday" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" [defaultDate]="minBirthDate" appendTo="body" [showIcon]="true" id="birthday1" autocomplete="birthday" class="w-full"
                         [ngClass]="{'ng-invalid ng-dirty': submitted && f.birthday.errors}"></p-calendar>
                     @if(submitted && f.birthday.errors){
                     <div class="invalid-feedback">
@@ -67,38 +67,6 @@
                         <small class="p-error">Birthday is required</small>
                         } @else if(f.birthday.errors.birthday){
                         <small class="p-error">Please enter a valid Birthday </small>
-                        }
-                    </div>
-                    }
-                </span>
-            </div>
-            <div class="w-full md:w-5 mb-3">
-                <span class="mb-3">
-                    <label for="startDate1" class="block text-900 font-medium mb-2">Start Date</label>
-                    <p-calendar formControlName="startDate" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" appendTo="body" [showIcon]="true" id="startDate1" class="w-full"
-                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.startDate.errors}"></p-calendar>
-                    @if(submitted && f.startDate.errors){
-                    <div class="invalid-feedback">
-                        @if(f.startDate.errors.required){
-                        <small class="p-error">Start Date is required</small>
-                        } @else if(f.startDate.errors.startDate){
-                        <small class="p-error">Please enter a valid Start Date </small>
-                        }
-                    </div>
-                    }
-                </span>
-            </div>
-            <div class="w-full md:w-5 mb-3">
-                <span class="mb-3">
-                    <label for="endDate1" class="block text-900 font-medium mb-2">End Date</label>
-                    <p-calendar formControlName="endDate" [iconDisplay]="'input'" [dateFormat]="'dd.mm.yy'" appendTo="body" [showIcon]="true" id="endDate1" class="w-full"
-                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.endDate.errors}"></p-calendar>
-                    @if(submitted && f.endDate.errors){
-                    <div class="invalid-feedback">
-                        @if(f.endDate.errors.required){
-                        <small class="p-error">End Date is required</small>
-                        } @else if(f.endDate.errors.endDate){
-                        <small class="p-error">Please enter a valid End Date </small>
                         }
                     </div>
                     }

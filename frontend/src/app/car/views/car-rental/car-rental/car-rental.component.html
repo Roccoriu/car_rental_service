@@ -1,0 +1,33 @@
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+    <div class="text-900 font-bold text-3xl text-center">Rent your car</div>
+    <p class="text-600 font-normal text-xl text-center">Welcome to Happy Wheels Rentals, where every journey begins with a smile! Discover the fun and freedom of travel with our friendly and affordable car rental service, tailored for your adventures.</p>
+    <p-divider class="w-full"></p-divider>
+    <div class="flex flex-wrap lg:flex-nowrap">
+        <app-car-rental-filter [cars]="cars" (filterdCars)="filterdCarsChange($event)"></app-car-rental-filter>
+
+        <div class="w-full surface-section mt-3 lg:mt-0"
+            style="min-height:25rem;">
+            <div class="flex flex-wrap lg:flex-nowrap">
+                <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+                    <div class="flex flex-column lg:flex-row">
+                        <div class="flex flex-row mb-2 lg:mb-0">
+                            <app-car-rental-seach [cars]="filterdCars"
+                                (filterdCars)="searchCars($event)"></app-car-rental-seach>
+                            <p-button class="mx-4"
+                                [icon]="sortDirection === 'down' ? 'pi pi-sort-amount-down' : 'pi pi-sort-amount-up'"
+                                [rounded]="true" [outlined]="true" (onClick)="sortList()"></p-button>
+                        </div>
+                        <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"
+                            [minDate]="today" (onSelect)="checkDateSelection()" [dateFormat]="'dd.mm.yy'"></p-calendar>
+                    </div>
+                    <div class="flex flex-row flex-wrap">
+                        @for(car of searchedCars; track car.id){
+                        <app-car-card class="col-12 md:col-6 lg:col-3 mb-5 md:mb-0" [car]="car"
+                            [dates]="rangeDates"></app-car-card>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

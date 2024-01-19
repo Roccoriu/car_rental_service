@@ -98,12 +98,12 @@
                         <p class="text-900 text-sm text-center mt-1">Grey</p>
                     </div>
                     <div class="col-4 flex flex-column align-items-center">
-                        <div class="w-3rem h-3rem border-circle bg-primary-300 cursor-pointer border-none flex justify-content-center align-items-center"
-                            (click)="selectedColors.indexOf('Other') == -1 ? selectedColors.push('Other') : selectedColors.splice(selectedColors.indexOf('Other'), 1); filterCars()">
+                        <div class="w-3rem h-3rem border-circle bg-red-500 cursor-pointer border-none flex justify-content-center align-items-center"
+                            (click)="selectedColors.indexOf('Red') == -1 ? selectedColors.push('Red') : selectedColors.splice(selectedColors.indexOf('Red'), 1); filterCars()">
                             <i class="pi pi-check text-2xl text-white"
-                                *ngIf="selectedColors.indexOf('Other') !== -1"></i>
+                                *ngIf="selectedColors.indexOf('Red') !== -1"></i>
                         </div>
-                        <p class="text-900 text-sm text-center mt-1">Other</p>
+                        <p class="text-900 text-sm text-center mt-1">Red</p>
                     </div>
                 </div>
             </div>

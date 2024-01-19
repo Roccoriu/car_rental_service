@@ -1,5 +1,7 @@
 <div class="text-center mb-5 overflow-hidden">
-    <div class="text-900 text-3xl font-medium mb-3">Create new Car</div>
+    @if(car){
+    <div class="text-900 text-3xl font-medium mb-3">{{car.brand + " " + car.model}}</div>
+    }
     <form [formGroup]="carFormGroup" (ngSubmit)="submit()">
         <div class="flex flex-wrap justify-content-around">
             <div class="w-full md:w-5">
@@ -61,8 +63,8 @@
             <div class="w-full md:w-5 mb-3">
                 <span class="mb-3">
                     <label for="year1" class="block text-900 font-medium mb-2">Year</label>
-                    <input formControlName="year" id="year1" type="text" pInputText class="w-full"
-                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.year.errors}" />
+                    <p-calendar formControlName="year" id="year1" styleClass="w-full" view="year" dateFormat="yy"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.year.errors}" appendTo="body"></p-calendar>
                     @if(submitted && f.year.errors){
                     <div class="invalid-feedback">
                         @if (f.year.errors.required){
@@ -78,17 +80,35 @@
             </div>
             <div class="w-full md:w-5 mb-3">
                 <span class="mb-3">
-                    <label for="seats1" class="block text-900 font-medium mb-2">seats</label>
-                    <input formControlName="seats" id="seats1" type="text" pInputText class="w-full"
-                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.seats.errors}" />
-                    @if(submitted && f.seats.errors){
+                    <label for="color1" class="block text-900 font-medium mb-2">Color</label>
+                    <input formControlName="color" id="color1" type="text" pInputText class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.color.errors}" />
+                    @if(submitted && f.color.errors){
                     <div class="invalid-feedback">
-                        @if (f.seats.errors.required){
-                        <small class="p-error">seats is required</small>
-                        } @else if (f.seats.errors.minlength){
-                        <small class="p-error">The seats must be at least 2 characters</small>
-                        } @else if (f.seats.errors.maxlength){
-                        <small class="p-error">The seats can not be longer than 50 characters</small>
+                        @if (f.color.errors.required){
+                        <small class="p-error">Color is required</small>
+                        } @else if (f.color.errors.minlength){
+                        <small class="p-error">The Color must be at least 2 characters</small>
+                        } @else if (f.color.errors.maxlength){
+                        <small class="p-error">The Color can not be longer than 50 characters</small>
+                        }
+                    </div>
+                    }
+                </span>
+            </div>
+            <div class="w-full md:w-5 mb-3">
+                <span class="mb-3">
+                    <label for="automatic1" class="block text-900 font-medium mb-2">Automatic</label>
+                    <p-inputSwitch formControlName="automatic" id="automatic1"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.automatic.errors}" />
+                    @if(submitted && f.automatic.errors){
+                    <div class="invalid-feedback">
+                        @if (f.automatic.errors.required){
+                        <small class="p-error">Automatic is required</small>
+                        } @else if (f.automatic.errors.minlength){
+                        <small class="p-error">The Automatic must be at least 2 characters</small>
+                        } @else if (f.automatic.errors.maxlength){
+                        <small class="p-error">The Automatic can not be longer than 50 characters</small>
                         }
                     </div>
                     }
@@ -97,7 +117,8 @@
             <div class="w-full md:w-5 mb-3">
                 <span class="mb-3">
                     <label for="rentPriceDay1" class="block text-900 font-medium mb-2">Price</label>
-                    <input formControlName="rentPriceDay" id="rentPriceDay1" type="text" pInputText class="w-full"
+                    <p-inputNumber inputId="integeronly" formControlName="rentPriceDay" id="rentPriceDay1"
+                        mode="currency" currency="CHF" locale="de-CH" styleClass="w-full"
                         [ngClass]="{'ng-invalid ng-dirty': submitted && f.rentPriceDay.errors}" />
                     @if(submitted && f.rentPriceDay.errors){
                     <div class="invalid-feedback">
@@ -115,8 +136,8 @@
             <div class="w-full md:w-5 mb-3">
                 <span class="mb-3">
                     <label for="seats1" class="block text-900 font-medium mb-2">Seats</label>
-                    <input formControlName="seats" id="seats1" type="text" pInputText class="w-full"
-                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.seats.errors}" />
+                    <p-inputNumber inputId="integeronly" formControlName="seats" id="seats1" type="text"
+                        styleClass="w-full" [ngClass]="{'ng-invalid ng-dirty': submitted && f.seats.errors}" />
                     @if(submitted && f.seats.errors){
                     <div class="invalid-feedback">
                         @if (f.seats.errors.required){
@@ -131,24 +152,6 @@
                 </span>
             </div>
             <div class="w-full md:w-5 mb-3">
-                <span class="mb-3">
-                    <label for="automatic1" class="block text-900 font-medium mb-2">Automatic</label>
-                    <input formControlName="automatic" id="automatic1" type="text" pInputText class="w-full"
-                        [ngClass]="{'ng-invalid ng-dirty': submitted && f.automatic.errors}" />
-                    @if(submitted && f.automatic.errors){
-                    <div class="invalid-feedback">
-                        @if (f.automatic.errors.required){
-                        <small class="p-error">Automatic is required</small>
-                        } @else if (f.automatic.errors.minlength){
-                        <small class="p-error">The Automatic must be at least 2 characters</small>
-                        } @else if (f.automatic.errors.maxlength){
-                        <small class="p-error">The Automatic can not be longer than 50 characters</small>
-                        }
-                    </div>
-                    }
-                </span>
-            </div>
-            <div class="w-full md:w-5">
                 <label htmlFor="upload-image">Bild hochladen</label>
                 <p-fileUpload #imageUpload chooseLabel="auswählen" class="-mt-3" [fileLimit]="1" mode="basic"
                     accept="image/*" (onSelect)="onSelect($event); imageUpload.clear()" [auto]="true"></p-fileUpload>
@@ -164,6 +167,10 @@
                 }
             </div>
         </div>
-        <button type="submit" pButton pRipple label="Confirm Renting" icon="pi pi-plus" class="w-full"></button>
+        @if(car){
+        <button type="submit" pButton pRipple label="Update Car" icon="pi pi-pencil" class="w-full"></button>
+        }@else {
+        <button type="submit" pButton pRipple label="Create Car" icon="pi pi-plus" class="w-full"></button>
+        }
     </form>
 </div>

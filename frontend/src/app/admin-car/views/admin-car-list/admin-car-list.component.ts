@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { Car, Client } from 'src/app/core/services/service-clients';
+import { Car, CarCreateUpdateDto, CarGetDto, Client } from 'src/app/core/services/service-clients';
 import { AdminCarDialogComponent } from '../../components/admin-car-dialog/admin-car-dialog.component';
 
 @Component({
@@ -11,9 +11,9 @@ import { AdminCarDialogComponent } from '../../components/admin-car-dialog/admin
 })
 export class AdminCarListComponent {
 
-  cars: Car[] = [];
+  cars: CarGetDto[] = [];
 
-  constructor(private clientService: Client, private confirmationService: ConfirmationService, private dialogService: DialogService) { }
+  constructor(private clientService: Client, private confirmationService: ConfirmationService, private dialogService: DialogService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.clientService.getCars().subscribe(cars => {
@@ -25,29 +25,51 @@ export class AdminCarListComponent {
     const ref = this.dialogService.open(AdminCarDialogComponent, {
       header: 'Create Car',
       width: '70%',
+      dismissableMask: true,
       data: null
     });
 
-    ref.onClose.subscribe((car: Car) => {
-      if (car) {
-        this.clientService.postCar(car).subscribe((car) => {
-          this.cars.push(car);
+    ref.onClose.subscribe((newCar: CarCreateUpdateDto) => {
+      if (newCar) {
+        this.clientService.postCar(newCar).subscribe((newCar) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'The car was successfully created' });
+          this.cars.push(newCar);
         });
       }
     });
   }
 
   openEditCarDialog(car: Car) {
+    const ref = this.dialogService.open(AdminCarDialogComponent, {
+      header: 'Edit Car',
+      width: '70%',
+      dismissableMask: true,
+      data: car
+    });
+
+    ref.onClose.subscribe((newCar: CarCreateUpdateDto) => {
+      if (newCar) {
+        this.clientService.putCar(car.id, newCar).subscribe((newCar) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'The car was successfully edited' });
+          this.cars = this.cars.map(c => {
+            if (c.id === newCar.id) {
+              return newCar;
+            }
+            return c;
+          });
+        });
+      }
+    });
 
   }
 
   deleteCar(car: Car) {
-    console.log(car);
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this car?',
       header: 'Delete Confirmation',
       accept: () => {
         this.clientService.deleteCar(car.id).subscribe(() => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'The car was successfully deleted' });
           this.cars = this.cars.filter(c => c.id !== car.id);
         });
       }

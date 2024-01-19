@@ -15,18 +15,22 @@ class CarController(
     private val carService: CarService,
 ) {
     @GetMapping
+    @CrossOrigin
     fun getCars(): List<CarGetDto> = carService.getAllCars()
 
     @GetMapping("/{id}")
+    @CrossOrigin
     fun getCar(@PathVariable id: Long): Car = carService.getCarsById(id)
 
     @PostMapping
+    @CrossOrigin
     fun postCar(@RequestBody @Valid carDto: CarCreateUpdateDto): ResponseEntity<Car> {
         val createdCar = carService.createCar(carDto)
         return ResponseEntity(createdCar, HttpStatus.CREATED)
     }
 
     @PutMapping("/{id}")
+    @CrossOrigin
     fun putCar(
         @PathVariable id: Long,
         @RequestBody @Valid carDto: CarCreateUpdateDto,
@@ -36,6 +40,7 @@ class CarController(
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin
     fun deleteCar(@PathVariable id: Long): ResponseEntity<Map<String, String>> {
         val deletedCar = carService.deleteCar(id)
         return ResponseEntity(

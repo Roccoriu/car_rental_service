@@ -1,6 +1,6 @@
 <div class="p-2">
     <div class="relative mb-3">
-        <img [src]="car.image" class="w-full" />
+        <img [src]="'https://joltx-car-rental.s3.eu-central-1.amazonaws.com/' + car.image" loading="lazy" class="w-full" />
         <span class="bg-pink-500 text-pink-50 font-bold px-2 py-1 absolute"
             style="border-radius: 1rem; right: 1rem; bottom: 1rem">{{car.year}}</span>
     </div>

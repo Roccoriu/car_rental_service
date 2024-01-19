@@ -7,6 +7,8 @@ import { LayoutModule } from './layout/layout.module';
 import { CarModule } from './car/car.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminCarModule } from './admin-car/admin-car.module';
+import { ToastModule } from 'primeng/toast';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { AdminCarModule } from './admin-car/admin-car.module';
     LayoutModule,
     CarModule,
     HttpClientModule,
-    AdminCarModule
+    AdminCarModule,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]
