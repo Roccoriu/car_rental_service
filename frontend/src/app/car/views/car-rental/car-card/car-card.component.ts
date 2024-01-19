@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CarRentDialogComponent } from '../car-rent-dialog/car-rent-dialog.component';
+import { CarRentDialogComponent } from '../../../components/car-rent-dialog/car-rent-dialog.component';
 import { Client } from 'src/app/core/services/service-clients';
 import { MessageService } from 'primeng/api';
 
