@@ -25,7 +25,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
 
-@WebMvcTest(RentalControllerTest::class)
+@WebMvcTest(RentalController::class)
 class RentalControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
@@ -124,7 +124,7 @@ class RentalControllerTest {
         `when`(rentalService.getRentalsById(1)).thenReturn(testRental)
 
         mockMvc.perform(
-            get("/v1/customers/1")
+            get("/v1/rental/1")
                 .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isOk)
@@ -171,7 +171,7 @@ class RentalControllerTest {
     fun deleteRental() {
         doNothing().`when`(rentalService).deleteRental(1)
 
-        mockMvc.perform(delete("v1/rental/1"))
+        mockMvc.perform(delete("/v1/rental/1"))
             .andExpect(status().isOk)
     }
 }

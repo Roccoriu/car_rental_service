@@ -37,7 +37,7 @@ class CustomerController(private val customerService: CustomerService) {
         @Valid @RequestBody customerDto: CustomerCreateDto,
     ): ResponseEntity<Customer> {
         val newCustomer = customerService.updateCustomer(id, customerDto)
-        return ResponseEntity(newCustomer, HttpStatus.CREATED)
+        return ResponseEntity(newCustomer, HttpStatus.OK)
     }
 
     @DeleteMapping("/{id}")
