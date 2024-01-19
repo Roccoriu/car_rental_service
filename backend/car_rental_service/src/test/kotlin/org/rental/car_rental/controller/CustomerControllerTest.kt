@@ -3,16 +3,14 @@ package org.rental.car_rental.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
 import org.mapstruct.factory.Mappers
-import org.mockito.Mock
 import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import org.rental.car_rental.dto.customer.CustomerCreateDto
 import org.rental.car_rental.dto.customer.CustomerGetMapper
-import org.rental.car_rental.model.Customer
 import org.rental.car_rental.service.CustomerService
+import org.rental.car_rental.util.createCustomerCreateDto
+import org.rental.car_rental.util.createCustomers
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
@@ -21,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import java.time.LocalDate
 
 @WebMvcTest(CustomerController::class)
 class CustomerControllerTest {
@@ -37,34 +34,6 @@ class CustomerControllerTest {
     init {
         MockitoAnnotations.openMocks(this)
     }
-
-    private fun createCustomers(): List<Customer> =
-        listOf(
-            Customer(
-                id = 1,
-                firstName = "John",
-                lastName = "Doe",
-                dateOfBirth = LocalDate.of(1980, 1, 1),
-                email = "john.doe@example.com"
-            ),
-
-            Customer(
-                id = 2,
-                firstName = "Jane",
-                lastName = "Smith",
-                dateOfBirth = LocalDate.of(1990, 12, 31),
-                email = "jane.smith@example.com"
-            )
-
-        )
-
-    private fun createCustomerCreateDto(): CustomerCreateDto =
-        CustomerCreateDto(
-            firstName = "Jane",
-            lastName = "Smith",
-            dateOfBirth = LocalDate.of(1990, 12, 31),
-            email = "jane.smith@example.com"
-        )
 
     @Test
 

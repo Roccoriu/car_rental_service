@@ -16,7 +16,7 @@ data class Car(
     val year: Int,
     val color: String,
     val rentPriceDay: Double,
-    val isAutomatic: Boolean,
+    val automatic: Boolean,
     val seats: Int,
     var image: String? = null,
 

@@ -7,10 +7,10 @@ import org.mockito.Mockito.doNothing
 
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import org.rental.car_rental.dto.car.CarCreateUpdateDto
 import org.rental.car_rental.dto.car.CarGetMapper
-import org.rental.car_rental.model.Car
 import org.rental.car_rental.service.CarService
+import org.rental.car_rental.util.createDtoTestCar
+import org.rental.car_rental.util.createTestCars
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.beans.factory.annotation.Autowired
@@ -34,47 +34,6 @@ class CarControllerTest {
     init {
         MockitoAnnotations.openMocks(this)
     }
-
-    private fun createTestCars(): List<Car> =
-        listOf(
-            Car(
-                id = 1,
-                category = "Sedan",
-                brand = "Toyota",
-                model = "Camry",
-                year = 2022,
-                color = "Blue",
-                rentPriceDay = 50.0,
-                isAutomatic = true,
-                seats = 5,
-                image = "toyota_camry.jpg",
-            ),
-            Car(
-                id = 2,
-                category = "SUV",
-                brand = "Honda",
-                model = "CR-V",
-                year = 2021,
-                color = "Red",
-                rentPriceDay = 60.0,
-                isAutomatic = true,
-                seats = 5,
-                image = "honda_cr-v.jpg",
-            )
-        )
-
-    private fun createDtoTestCar(): CarCreateUpdateDto =
-        CarCreateUpdateDto(
-            category = "SUV",
-            brand = "Honda",
-            model = "CR-V",
-            year = 2021,
-            color = "Red",
-            rentPriceDay = 60.0,
-            isAutomatic = true,
-            seats = 5,
-            imageData = "honda_cr-v.jpg",
-        )
 
     @Test
     fun getCars() {

@@ -21,7 +21,7 @@ class DataLoader(
             rentPriceDay = 50.0,
             seats = 5,
             image = "c1.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -33,7 +33,7 @@ class DataLoader(
             rentPriceDay = 40.0,
             seats = 4,
             image = "c2.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -45,7 +45,7 @@ class DataLoader(
             rentPriceDay = 200.0,
             seats = 2,
             image = "c3.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -57,7 +57,7 @@ class DataLoader(
             rentPriceDay = 30.0,
             seats = 4,
             image = "c4.jpg",
-            isAutomatic = false
+            automatic = false
         ),
 
         Car(
@@ -69,7 +69,7 @@ class DataLoader(
             rentPriceDay = 70.0,
             seats = 2,
             image = "c5.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -81,7 +81,7 @@ class DataLoader(
             rentPriceDay = 60.0,
             seats = 6,
             image = "c6.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -93,7 +93,7 @@ class DataLoader(
             rentPriceDay = 55.0,
             seats = 7,
             image = "c7.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -105,7 +105,7 @@ class DataLoader(
             rentPriceDay = 65.0,
             seats = 4,
             image = "c8.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -117,7 +117,7 @@ class DataLoader(
             rentPriceDay = 45.0,
             seats = 5,
             image = "c9.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -129,7 +129,7 @@ class DataLoader(
             rentPriceDay = 100.0,
             seats = 4,
             image = "c10.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -141,7 +141,7 @@ class DataLoader(
             rentPriceDay = 60.0,
             seats = 5,
             image = "c11.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -153,7 +153,7 @@ class DataLoader(
             rentPriceDay = 45.0,
             seats = 4,
             image = "c12.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -165,7 +165,7 @@ class DataLoader(
             rentPriceDay = 210.0,
             seats = 2,
             image = "c13.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -177,7 +177,7 @@ class DataLoader(
             rentPriceDay = 35.0,
             seats = 4,
             image = "c14.jpg",
-            isAutomatic = false
+            automatic = false
         ),
 
         Car(
@@ -189,7 +189,7 @@ class DataLoader(
             rentPriceDay = 80.0,
             seats = 2,
             image = "c15.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -201,7 +201,7 @@ class DataLoader(
             rentPriceDay = 65.0,
             seats = 6,
             image = "c16.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -213,7 +213,7 @@ class DataLoader(
             rentPriceDay = 50.0,
             seats = 7,
             image = "c17.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -225,7 +225,7 @@ class DataLoader(
             rentPriceDay = 75.0,
             seats = 4,
             image = "c18.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -237,7 +237,7 @@ class DataLoader(
             rentPriceDay = 50.0,
             seats = 5,
             image = "c19.jpg",
-            isAutomatic = true
+            automatic = true
         ),
 
         Car(
@@ -249,7 +249,7 @@ class DataLoader(
             rentPriceDay = 110.0,
             seats = 4,
             image = "c20.jpg",
-            isAutomatic = true
+            automatic = true
         )
     )
 

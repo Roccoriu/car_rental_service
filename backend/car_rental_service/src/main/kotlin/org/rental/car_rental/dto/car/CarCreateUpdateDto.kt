@@ -2,7 +2,6 @@ package org.rental.car_rental.dto.car
 
 import jakarta.validation.constraints.*
 import org.mapstruct.Mapper
-import org.mapstruct.factory.Mappers
 import org.rental.car_rental.model.Car
 
 data class CarCreateUpdateDto(
@@ -40,5 +39,4 @@ data class CarCreateUpdateDto(
 @Mapper(componentModel = "spring")
 interface CarCreateUpdateMapper {
     fun dtoToCar(car: CarCreateUpdateDto): Car
-
 }
