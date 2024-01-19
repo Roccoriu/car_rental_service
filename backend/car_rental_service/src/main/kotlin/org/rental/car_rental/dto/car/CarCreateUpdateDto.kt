@@ -27,7 +27,7 @@ data class CarCreateUpdateDto(
     val rentPriceDay: Double,
 
     @field:NotNull
-    val isAutomatic: Boolean,
+    val automatic: Boolean,
 
     @field:NotNull
     @field:Positive
