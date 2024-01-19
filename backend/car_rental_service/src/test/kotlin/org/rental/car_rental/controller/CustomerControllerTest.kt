@@ -110,7 +110,7 @@ class CustomerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload)
         )
-            .andExpect(status().isOk)
+            .andExpect(status().isCreated)
     }
 
     @Test
