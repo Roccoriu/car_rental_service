@@ -16,7 +16,7 @@
                         <p-button class="mx-4"
                             [icon]="sortDirection === 'down' ? 'pi pi-sort-amount-down' : 'pi pi-sort-amount-up'"
                             [rounded]="true" [outlined]="true" (onClick)="sortList()"></p-button>
-                            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [dateFormat]="'dd.mm.yy'"></p-calendar>
+                            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [minDate]="today" (onSelect)="checkDateSelection()" [dateFormat]="'dd.mm.yy'"></p-calendar>
                     </div>
                     <div class="flex flex-row flex-wrap">
                         @for(car of searchedCars; track car.id){

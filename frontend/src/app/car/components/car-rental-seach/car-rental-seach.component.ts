@@ -14,7 +14,6 @@ export class CarRentalSeachComponent {
   constructor() { }
 
   onSearchChange(event: any) {
-    console.log(event.target.value);
     const searchValue = event.target.value.toLowerCase();
     const filterdCars = this.cars.filter(car => {
       return car.brand.toLowerCase().includes(searchValue) ||

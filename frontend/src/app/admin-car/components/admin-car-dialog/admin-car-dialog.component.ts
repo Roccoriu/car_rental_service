@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dynamicdialog';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { Car, CarCreateUpdateDto, Client, CustomerCreateDto, RentalCreateDto } from 'src/app/core/services/service-clients';
 
 @Component({
@@ -28,7 +29,7 @@ export class AdminCarDialogComponent {
     automatic: new FormControl(false, [Validators.required]),
   });
 
-  constructor(private config: DynamicDialogConfig, private ref: DynamicDialogRef) { }
+  constructor(private http: HttpClient, private config: DynamicDialogConfig, private ref: DynamicDialogRef) { }
 
 
   ngOnInit(): void {
@@ -43,27 +44,44 @@ export class AdminCarDialogComponent {
   }
 
   patchForm(car: Car): void {
-    this.carFormGroup.patchValue({
-      category: car.category,
-      brand: car.brand,
-      model: car.model,
-      year: new Date(car.year, 0),
-      color: car.color,
-      rentPriceDay: car.rentPriceDay,
-      seats: car.seats,
-      image: car.image,
-      automatic: car.automatic
+    this.getImageAsBase64(car.image).then((base64Image: any) => {
+      this.carFormGroup.patchValue({
+        category: car.category,
+        brand: car.brand,
+        model: car.model,
+        year: new Date(car.year, 0),
+        color: car.color,
+        rentPriceDay: car.rentPriceDay,
+        seats: car.seats,
+        image: base64Image,
+        automatic: car.automatic
+      });
+    }).catch((error: any) => {
+      console.error('Error fetching image:', error);
     });
   }
 
+getImageAsBase64(url: string): Promise<string> {
+    return firstValueFrom(this.http.get("https://joltx-car-rental.s3.eu-central-1.amazonaws.com/" + url, { responseType: 'blob' })).then(blob => {
+        return new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+                const base64data = reader.result as string;
+                resolve(base64data);
+            };
+            reader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    });
+}
 
   submit(): void {
-    console.log(this.carFormGroup);
     this.submitted = true;
     if (this.carFormGroup.invalid) {
       return;
     }
-    console.log(this.f.category.value);
     let newCar = new CarCreateUpdateDto();
     newCar.category = this.f.category.value;
     newCar.brand = this.f.brand.value;
@@ -74,7 +92,6 @@ export class AdminCarDialogComponent {
     newCar.seats = this.f.seats.value;
     newCar.imageData = this.f.image.value;
     newCar.automatic = this.f.automatic.value;
-    console.log(newCar);
 
     this.ref.close(newCar);
 
@@ -86,7 +103,6 @@ export class AdminCarDialogComponent {
 
     reader.readAsDataURL(file);
     reader.onload = () => {
-      console.log(reader.result);
       this.carFormGroup.patchValue({
         image: reader.result
       });

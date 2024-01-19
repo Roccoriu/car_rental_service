@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CarRentDialogComponent } from '../car-rent-dialog/car-rent-dialog.component';
+import { Client } from 'src/app/core/services/service-clients';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-car-card',
@@ -9,13 +11,15 @@ import { CarRentDialogComponent } from '../car-rent-dialog/car-rent-dialog.compo
 })
 export class CarCardComponent {
   @Input() car: any;
+  _dates: any;
   @Input() set dates(dates: any) {
     if (!dates) return;
     this.checkCarAvailability(dates);
+    this._dates = dates;
   }
   isRentable = true;
 
-  constructor(private dialogService: DialogService) { }
+  constructor(private dialogService: DialogService, private clientService: Client, private messageService: MessageService) { }
 
 
   private checkCarAvailability(dates: any): void {
@@ -28,11 +32,9 @@ export class CarCardComponent {
       const rentalEnd = new Date(rental.endDate);
 
       // Check for date overlap
-      console.log(startDate, endDate, rentalStart, rentalEnd);
       if ((startDate >= rentalStart && startDate <= rentalEnd) || // New start is within an existing rental
         (endDate >= rentalStart && endDate <= rentalEnd) || // New end is within an existing rental
         (startDate <= rentalStart && endDate >= rentalEnd)) { // New rental encompasses an existing rental
-        console.log('Car is not available');
         this.isRentable = false;
         break; // Car is not available, no need to check further
       }
@@ -45,6 +47,13 @@ export class CarCardComponent {
       width: '70%',
       data: this.car
     });
-  }
+    ref.onClose.subscribe((rental: any) => {
+      this.clientService.postRental(rental).subscribe((newRental) => {
+        this.car.rentals.push(newRental);
+        this.checkCarAvailability(this._dates);
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'The car was successfully rented' });
+      });
+    });
 
+  }
 }
