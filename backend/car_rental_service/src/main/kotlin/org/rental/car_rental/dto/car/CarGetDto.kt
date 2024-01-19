@@ -18,7 +18,7 @@ data class CarGetDto(
     val year: Int,
     val color: String,
     val rentPriceDay: Double,
-    val isAutomatic: Boolean,
+    val automatic: Boolean,
     val seats: Int,
     val image: String,
     val rentals: List<RentalCarGetDto>,
