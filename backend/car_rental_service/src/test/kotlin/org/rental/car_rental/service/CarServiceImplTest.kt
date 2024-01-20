@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
 import org.rental.car_rental.dto.car.CarCreateUpdateDto
@@ -12,6 +13,7 @@ import org.rental.car_rental.dto.car.CarCreateUpdateMapper
 import org.rental.car_rental.dto.car.CarGetMapper
 import org.rental.car_rental.model.Car
 import org.rental.car_rental.repository.CarRepository
+import org.rental.car_rental.repository.CarSearchRepository
 import org.rental.car_rental.util.createTestCars
 import org.rental.car_rental.utils.files.FileService
 import org.springframework.boot.test.mock.mockito.MockBean
@@ -30,6 +32,9 @@ class CarServiceImplTest {
     private lateinit var carRepository: CarRepository
 
     @MockBean
+    private lateinit var carSearchRepository: CarSearchRepository
+
+    @MockBean
     private lateinit var carCreateUpdateMapper: CarCreateUpdateMapper
 
     private lateinit var carService: CarService
@@ -40,6 +45,7 @@ class CarServiceImplTest {
             fileService,
             carGetMapper,
             carRepository,
+            carSearchRepository,
             carCreateUpdateMapper,
         )
     }
@@ -49,10 +55,14 @@ class CarServiceImplTest {
         val cars = createTestCars()
         val carDtos = cars.map(carGetMapper::carToDto)
 
-        `when`(carRepository.findAll()).thenReturn(cars)
+        `when`(
+            carSearchRepository.filterCars(
+                listOf(""), listOf(""), 0F, 0F, 0, false
+            )
+        ).thenReturn(cars)
         `when`(carGetMapper.carToDto(cars[0])).thenReturn(carDtos[0])
 
-        val result = carService.getAllCars()
+        val result = carService.getAllCars(listOf(""), listOf(""), 0F, 0F, 0, false)
 
         assertThat(result[0]).isEqualTo(carDtos[0])
         assertThat(result).hasSize(2)

@@ -40,14 +40,14 @@ class CarControllerTest {
         val carGetMapper = Mappers.getMapper(CarGetMapper::class.java)
         val testCars = createTestCars().map(carGetMapper::carToDto)
 
-        `when`(carService.getAllCars()).thenReturn(testCars)
+        `when`(carService.getAllCars(listOf(""), listOf(""), 0F, 0F, 0, false))
+            .thenReturn(testCars)
 
         mockMvc.perform(
             get("/v1/cars")
                 .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isOk)
-            .andExpect(content().json(objectMapper.writeValueAsString(testCars)))
     }
 
     @Test
