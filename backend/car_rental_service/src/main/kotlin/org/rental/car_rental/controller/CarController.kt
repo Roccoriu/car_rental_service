@@ -16,7 +16,21 @@ class CarController(
 ) {
     @GetMapping
     @CrossOrigin
-    fun getCars(): List<CarGetDto> = carService.getAllCars()
+    fun getCars(
+        @RequestParam type: String?,
+        @RequestParam brand: String?,
+        @RequestParam minPrice: Float?,
+        @RequestParam maxPrice: Float?,
+        @RequestParam minSeats: Int?,
+        @RequestParam isAutomatic: Boolean?,
+    ): List<CarGetDto> {
+        val carTypes = type?.split(",")
+        val carBrand = brand?.split(",")
+
+        return carService.getAllCars(
+            carTypes, carBrand, minPrice, maxPrice, minSeats, isAutomatic
+        )
+    }
 
     @GetMapping("/{id}")
     @CrossOrigin
