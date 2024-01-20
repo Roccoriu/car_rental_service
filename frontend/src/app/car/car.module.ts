@@ -19,6 +19,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { CarRentDialogComponent } from './components/car-rent-dialog/car-rent-dialog.component';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { CarRentalSeachComponent } from './components/car-rental-seach/car-rental-seach.component';
+import {CardModule} from "primeng/card";
 
 
 
@@ -27,24 +28,25 @@ import { CarRentalSeachComponent } from './components/car-rental-seach/car-renta
 
 @NgModule({
   declarations: [CarRentalComponent, CarRentalFilterComponent, CarCardComponent, CarRentDialogComponent, CarRentalSeachComponent],
-  imports: [
-    CommonModule,
-    DividerModule,
-    AccordionModule,
-    CheckboxModule,
-    BadgeModule,
-    SliderModule,
-    InputNumberModule,
-    GalleriaModule,
-    ButtonModule,
-    FormsModule,
-    InputTextModule,
-    BrowserAnimationsModule,
-    DynamicDialogModule,
-    CalendarModule,
-    ReactiveFormsModule,
-    InputSwitchModule,
-  ],
+    imports: [
+        CommonModule,
+        DividerModule,
+        AccordionModule,
+        CheckboxModule,
+        BadgeModule,
+        SliderModule,
+        InputNumberModule,
+        GalleriaModule,
+        ButtonModule,
+        FormsModule,
+        InputTextModule,
+        BrowserAnimationsModule,
+        DynamicDialogModule,
+        CalendarModule,
+        ReactiveFormsModule,
+        InputSwitchModule,
+        CardModule,
+    ],
   providers: [DialogService]
 })
 export class CarModule { }
